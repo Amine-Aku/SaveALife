@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PatientActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_history_text_area"
+        android:minWidth="100dp"
+        android:minHeight="100dp" />
+
+    <!--Patient name-->
+    <TextView
+        style="@style/button_big"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/bg_article_header"
+        android:gravity="center"
+        android:text="Amine Fattas"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_article_text_area"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:layout_editor_absoluteX="20dp">
+
+
+        <!--city    -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_titles"
+                android:text="@string/city" />
+
+            <TextView
+                android:id="@+id/post_input_city"
+                style="@style/input_field_mini" />
+
+        </LinearLayout>
+
+
+        <!--hospital    -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_titles"
+                android:text="@string/hospital" />
+
+            <TextView
+                android:id="@+id/post_input_hospital"
+                style="@style/input_field_mini" />
+        </LinearLayout>
+
+
+        <!--donation center-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_titles"
+                android:text="@string/donation_center" />
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_margin="3dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/maps_logo" />
+
+            <TextView
+                android:id="@+id/post_input_donation_center"
+                style="@style/input_field_mini"
+                android:layout_width="match_parent" />
+
+
+        </LinearLayout>
+
+
+        <!--blood type-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_titles"
+                android:text="@string/blood_type" />
+
+            <TextView
+                android:id="@+id/post_input_bloodType"
+                style="@style/input_field_mini" />
+        </LinearLayout>
+
+
+        <!--details-->
+        <TextView
+            style="@style/post_titles"
+            android:layout_marginTop="15dp"
+            android:text="@string/details" />
+
+        <TextView
+            android:id="@+id/post_input_details"
+            style="@style/input_field_mini"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:minHeight="120dp" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

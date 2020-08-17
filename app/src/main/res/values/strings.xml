@@ -1,0 +1,38 @@
+<resources>
+
+    <!--    Navigation-->
+    <string name="app_name">Save a life</string>
+    <string name="logo">Logo</string>
+
+    <string name="home">Home</string>
+    <string name="notifications">Notifications</string>
+    <string name="profile">Profile</string>
+
+    <string name="SOS">SOS</string>
+
+    <!--    Buttons-->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="sign_in_with">Sign in with :</string>
+
+    <!--    Register-->
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="confirm">Confirm Password</string>
+    <string name="blood_type">Blood Type</string>
+
+    <!--    Profile-->
+    <string name="last_donation">Last Donation :</string>
+    <string name="edit">Edit</string>
+    <string name="history">History</string>
+
+    <!--    New Post-->
+    <string name="new_post">New Post</string>
+    <string name="patient_name">Patient name :</string>
+    <string name="city">City :</string>
+    <string name="hospital">Hospital :</string>
+    <string name="donation_center">Donation center :</string>
+    <string name="details">Details :</string>
+
+
+</resources>
