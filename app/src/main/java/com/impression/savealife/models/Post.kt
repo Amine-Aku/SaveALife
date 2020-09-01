@@ -17,16 +17,6 @@ class Post {
     var bloodType: String = ""
     var details: String = ""
 
-    constructor(id: Long?, user: String, patientName: String, date: String?, hospital: String, donationCenter: String, bloodType: String, details: String) {
-        this.id = id
-        this.user = user
-        this.patientName = patientName
-        this.date = date
-        this.hospital = hospital
-        this.donationCenter = donationCenter
-        this.bloodType = bloodType
-        this.details = details
-    }
 
     constructor(user: String, patientName: String, date: String?, hospital: String, donationCenter: String, bloodType: String, details: String) {
         this.user = user
@@ -37,6 +27,8 @@ class Post {
         this.bloodType = bloodType
         this.details = details
     }
+
+
 
 
     init {

@@ -5,18 +5,18 @@ import java.util.*
 class Notification {
     var id: Long? = null
     var date: Date? = null
-    var destination: User? = null
+    var destination: Appuser? = null
     var body: String? = null
 
     //    Construtors
-    constructor(id: Long?, date: Date?, destination: User?, body: String?) {
+    constructor(id: Long?, date: Date?, destination: Appuser?, body: String?) {
         this.id = id
         this.date = date
         this.destination = destination
         this.body = body
     }
 
-    constructor(date: Date?, destination: User?, body: String?) {
+    constructor(date: Date?, destination: Appuser?, body: String?) {
         this.date = date
         this.destination = destination
         this.body = body

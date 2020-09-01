@@ -12,11 +12,11 @@ import com.impression.savealife.R
 import com.impression.savealife.models.Post
 import java.time.format.DateTimeFormatter
 
-class HomeAdapter(val context: Context, private val posts: List<Post>)
+class HomeAdapter(private val posts: List<Post>)
     : RecyclerView.Adapter<HomeAdapter.PostHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_posts, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_posts, parent, false)
         return PostHolder(view)
     }
 
@@ -28,6 +28,8 @@ class HomeAdapter(val context: Context, private val posts: List<Post>)
     override fun onBindViewHolder(holder: PostHolder, position: Int) {
         val post = posts[position]
         holder.setData(post, position)
+//        notifyItemChanged(holder.adapterPosition)
+//        notifyDataSetChanged()
     }
 
 

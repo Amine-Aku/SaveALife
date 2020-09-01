@@ -2,7 +2,7 @@ package com.impression.savealife.models
 
 import java.util.*
 
-class User {
+class Appuser {
     //    Getter & Setter
     private var id: Long? = null
     private var username: String? = null

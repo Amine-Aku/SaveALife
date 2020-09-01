@@ -21,6 +21,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 class HomeActivity : AppCompatActivity() {
 
     var recyclerView: RecyclerView? = null
+    var adapter: HomeAdapter? = null
+
+    override fun onStart() {
+        super.onStart()
+        recyclerView!!.layoutManager = LinearLayoutManager(this@HomeActivity)
+        adapter = HomeAdapter(emptyList<Post>())
+        recyclerView!!.adapter = adapter
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +54,7 @@ class HomeActivity : AppCompatActivity() {
 
 //        Fetch the posts
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://save-a-life-web-server.herokuapp.com")
+            .baseUrl("https://save-a-life-web-server.herokuapp.com/home/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -64,7 +72,10 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 recyclerView!!.layoutManager = LinearLayoutManager(this@HomeActivity)
-                recyclerView!!.adapter = HomeAdapter(this@HomeActivity, response.body()!!)
+                adapter = HomeAdapter(response.body()!!)
+                recyclerView!!.adapter = adapter
+//                recyclerView!!.adapter = HomeAdapter(this@HomeActivity, response.body()!!)
+//                Toast.makeText(this@HomeActivity, response.body()!!.toString(), Toast.LENGTH_LONG).show()
             }
 
         })

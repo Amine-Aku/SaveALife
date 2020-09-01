@@ -1,124 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="20dp"
-    android:background="@drawable/bg_history_text_area"
-    android:orientation="vertical"
-    android:padding="20dp"
-    tools:context=".NewPostActivity">
-
-    <!--Patient name-->
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/post_titles"
-            android:text="@string/patient_name" />
-
-        <EditText
-            android:id="@+id/post_input_name"
-            style="@style/input_field_mini" />
-    </LinearLayout>
-
-
-    <!--city    -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/post_titles"
-            android:text="@string/city" />
-
-        <EditText
-            android:id="@+id/post_input_city"
-            style="@style/input_field_mini" />
-
-    </LinearLayout>
-
-
-    <!--hospital    -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/post_titles"
-            android:text="@string/hospital" />
-
-        <EditText
-            android:id="@+id/post_input_hospital"
-            style="@style/input_field_mini" />
-    </LinearLayout>
-
-
-    <!--donation center-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/post_titles"
-            android:text="@string/donation_center" />
-
-        <ImageView
-            android:layout_width="35dp"
-            android:layout_margin="3dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/maps_logo" />
-
-        <EditText
-            android:id="@+id/post_input_donation_center"
-            style="@style/input_field_mini"
-            android:layout_width="match_parent" />
-
-
-    </LinearLayout>
-
-
-    <!--blood type-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/post_titles"
-            android:text="@string/blood_type" />
-
-        <EditText
-            android:id="@+id/post_input_bloodType"
-            style="@style/input_field_mini" />
-    </LinearLayout>
-
-
-    <!--details-->
-    <TextView
-        style="@style/post_titles"
-        android:layout_marginTop="15dp"
-        android:text="@string/details" />
-
-    <EditText
-        android:id="@+id/post_input_details"
-        style="@style/input_field_mini"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:minHeight="120dp" />
-
-    <Button
-        android:id="@+id/post_btn"
-        style="@style/button_big"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
         android:layout_margin="20dp"
-        android:text="@string/new_post" />
+        android:background="@drawable/bg_history_text_area"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:context=".NewPostActivity">
 
-</LinearLayout>
+        <!--Patient name-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_titles"
+                android:text="@string/patient_name" />
+
+            <EditText
+                android:id="@+id/post_input_name"
+                style="@style/input_field_mini" />
+        </LinearLayout>
+
+
+        <!--city    -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_titles"
+                android:text="@string/city" />
+
+            <EditText
+                android:id="@+id/post_input_city"
+                style="@style/input_field_mini" />
+
+        </LinearLayout>
+
+
+        <!--hospital    -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_titles"
+                android:text="@string/hospital" />
+
+            <EditText
+                android:id="@+id/post_input_hospital"
+                style="@style/input_field_mini" />
+        </LinearLayout>
+
+
+        <!--donation center-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_titles"
+                android:text="@string/donation_center" />
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:src="@drawable/maps_logo" />
+
+            <EditText
+                android:id="@+id/post_input_donation_center"
+                style="@style/input_field_mini"
+                android:layout_width="match_parent" />
+
+
+        </LinearLayout>
+
+
+        <!--blood type-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_titles"
+                android:text="@string/blood_type" />
+
+            <EditText
+                android:id="@+id/post_input_bloodType"
+                style="@style/input_field_mini" />
+        </LinearLayout>
+
+
+        <!--details-->
+        <TextView
+            style="@style/post_titles"
+            android:layout_marginTop="15dp"
+            android:text="@string/details" />
+
+        <EditText
+            android:id="@+id/post_input_details"
+            style="@style/input_field_mini"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:minHeight="120dp" />
+
+        <Button
+            android:id="@+id/post_btn"
+            style="@style/button_big"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:text="@string/new_post" />
+
+    </LinearLayout>
+</ScrollView>
