@@ -12,17 +12,17 @@ class Post {
     var user: String = ""
     var patientName: String = ""
     var date: String? = null
-    var hospital: String = ""
+    var city: String = ""
     var donationCenter: String = ""
     var bloodType: String = ""
     var details: String = ""
 
 
-    constructor(user: String, patientName: String, date: String?, hospital: String, donationCenter: String, bloodType: String, details: String) {
+    constructor(user: String, patientName: String, date: String?, city: String, donationCenter: String, bloodType: String, details: String) {
         this.user = user
         this.patientName = patientName
         this.date = date
-        this.hospital = hospital
+        this.city = city
         this.donationCenter = donationCenter
         this.bloodType = bloodType
         this.details = details
@@ -30,20 +30,8 @@ class Post {
 
 
 
-
-    init {
-
-    }
-
     override fun toString(): String {
-        return "Post(id=$id, user='$user', patientName='$patientName', date=$date, hospital='$hospital', donationCenter='$donationCenter', bloodType='$bloodType', details='$details')"
+        return "Post(id=$id, user='$user', patientName='$patientName', date=$date, city='$city', donationCenter='$donationCenter', bloodType='$bloodType', details='$details')"
     }
 
-}
-
-object ListPosts{
-    @RequiresApi(Build.VERSION_CODES.O)
-    var list = arrayListOf<Post>(
-        Post("test", "test", "test", "test","test","test","test")
-    )
 }

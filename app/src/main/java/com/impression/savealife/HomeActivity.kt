@@ -3,32 +3,31 @@ package com.impression.savealife
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.impression.savealife.adapters.HomeAdapter
-import com.impression.savealife.api.PostsAPI
-import com.impression.savealife.models.ListPosts
+import com.impression.savealife.api.ApiClient
 import com.impression.savealife.models.Post
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class HomeActivity : AppCompatActivity() {
 
+    private val TAG = "HomeActivity"
     var recyclerView: RecyclerView? = null
     var adapter: HomeAdapter? = null
+    var list: List<Post>? = null
 
     override fun onStart() {
         super.onStart()
-        recyclerView!!.layoutManager = LinearLayoutManager(this@HomeActivity)
-        adapter = HomeAdapter(emptyList<Post>())
-        recyclerView!!.adapter = adapter
+        setRecyclerView(emptyList())
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +36,7 @@ class HomeActivity : AppCompatActivity() {
         title = resources.getString(R.string.app_name)
         bottomNavigationInitialize(R.id.nav_home)
 
-//   Add Button
+//   Add+ Button(FloatingActionButton)
         val addAlert: FloatingActionButton = findViewById(R.id.home_add_alert)
         addAlert.setOnClickListener {
             startActivity(Intent(this, NewPostActivity::class.java))
@@ -46,20 +45,13 @@ class HomeActivity : AppCompatActivity() {
 //        init
         recyclerView = findViewById(R.id.home_recycler_view)
 
-//        var list: List<Post>? = ListPosts.list
-//        recyclerView!!.layoutManager = LinearLayoutManager(this)
-//        recyclerView!!.adapter = HomeAdapter(this, list!!)
+        retrofitCall()
+
+    }
 
 
-
-//        Fetch the posts
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://save-a-life-web-server.herokuapp.com/home/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val postsAPI = retrofit.create(PostsAPI::class.java)
-        val call = postsAPI.getPosts()
+    private fun retrofitCall(){
+        val call = ApiClient.getPostServices().getPosts()
         call.enqueue(object: Callback<List<Post>> {
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
                 Toast.makeText(this@HomeActivity, t.message, Toast.LENGTH_SHORT).show()
@@ -70,24 +62,26 @@ class HomeActivity : AppCompatActivity() {
                     Toast.makeText(this@HomeActivity, "Code : "+response.code(), Toast.LENGTH_LONG).show()
                     return
                 }
+                list = response.body()
+                setRecyclerView(list!!)
 
-                recyclerView!!.layoutManager = LinearLayoutManager(this@HomeActivity)
-                adapter = HomeAdapter(response.body()!!)
-                recyclerView!!.adapter = adapter
-//                recyclerView!!.adapter = HomeAdapter(this@HomeActivity, response.body()!!)
 //                Toast.makeText(this@HomeActivity, response.body()!!.toString(), Toast.LENGTH_LONG).show()
             }
 
         })
-
-
-//        RecyclerView
-
-
-
     }
 
-    fun bottomNavigationInitialize(selectedItemId: Int){
+    private fun setRecyclerView(list: List<Post>){
+        recyclerView!!.layoutManager = LinearLayoutManager(this@HomeActivity)
+        adapter = HomeAdapter(list)
+        recyclerView!!.adapter = adapter
+        recyclerView!!.post{
+            Log.d(TAG, "setRecyclerView: Data Change !")
+            adapter!!.notifyDataSetChanged()
+        }
+    }
+
+    private fun bottomNavigationInitialize(selectedItemId: Int){
         //Initialization
         val bottomnavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
 

@@ -1,4 +1,4 @@
-package com.impression.savealife.api
+package com.impression.savealife.services
 
 import com.impression.savealife.models.Post
 import retrofit2.Call
@@ -6,7 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface PostsAPI {
+interface PostServices {
     @GET("posts")
     fun getPosts(): Call<List<Post>>
 

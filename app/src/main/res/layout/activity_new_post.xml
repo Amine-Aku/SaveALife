@@ -23,6 +23,7 @@
 
             <TextView
                 style="@style/post_titles"
+                android:layout_width="120dp"
                 android:text="@string/patient_name" />
 
             <EditText
@@ -39,6 +40,7 @@
 
             <TextView
                 style="@style/post_titles"
+                android:layout_width="120dp"
                 android:text="@string/city" />
 
             <EditText
@@ -48,45 +50,37 @@
         </LinearLayout>
 
 
-        <!--hospital    -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/post_titles"
-                android:text="@string/hospital" />
-
-            <EditText
-                android:id="@+id/post_input_hospital"
-                style="@style/input_field_mini" />
-        </LinearLayout>
-
-
         <!--donation center-->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/center_donation_label"
                 style="@style/post_titles"
+                android:layout_marginTop="8dp"
                 android:text="@string/donation_center" />
 
             <ImageView
+                android:id="@+id/center_donation_gps_btn"
                 android:layout_width="35dp"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:src="@drawable/maps_logo" />
+                android:layout_height="35dp"
+                android:layout_marginStart="20dp"
+                android:layout_toRightOf="@id/center_donation_label"
+                android:src="@drawable/ic_location_on_black_24dp"
+                android:tint="@color/colorPrimaryDark" />
 
-            <EditText
+            <TextView
                 android:id="@+id/post_input_donation_center"
                 style="@style/input_field_mini"
-                android:layout_width="match_parent" />
+                android:layout_width="match_parent"
+                android:layout_below="@id/center_donation_gps_btn" />
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
         <!--blood type-->
@@ -97,11 +91,28 @@
 
             <TextView
                 style="@style/post_titles"
+                android:layout_width="120dp"
                 android:text="@string/blood_type" />
 
-            <EditText
-                android:id="@+id/post_input_bloodType"
-                style="@style/input_field_mini" />
+            <!--            <EditText-->
+            <!--                android:id="@+id/post_input_bloodType"-->
+            <!--                style="@style/input_field_mini" />-->
+
+            <Spinner
+                android:id="@+id/bloodType_spinner"
+                style="@style/input_field_mini"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:gravity="start"
+                android:minWidth="100dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="-35dp"
+                android:src="@drawable/ic_arrow_drop_down"
+                android:tint="@color/colorPrimaryDark" />
         </LinearLayout>
 
 
@@ -114,9 +125,16 @@
         <EditText
             android:id="@+id/post_input_details"
             style="@style/input_field_mini"
-            android:layout_width="300dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:minHeight="120dp" />
+            android:background="@drawable/bg_input_text_area"
+            android:gravity="top"
+            android:hint="@string/enter_details"
+            android:inputType="textMultiLine"
+            android:minHeight="130dp"
+            android:padding="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp" />
 
         <Button
             android:id="@+id/post_btn"

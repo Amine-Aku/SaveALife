@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        tools:listitem="@layout/item_notifications" />
+        tools:listitem="@layout/item_notifications"
+        android:layout_above="@id/bottom_navigation"/>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

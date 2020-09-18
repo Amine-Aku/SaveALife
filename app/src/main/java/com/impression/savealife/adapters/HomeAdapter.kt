@@ -29,7 +29,7 @@ class HomeAdapter(private val posts: List<Post>)
         val post = posts[position]
         holder.setData(post, position)
 //        notifyItemChanged(holder.adapterPosition)
-//        notifyDataSetChanged()
+//        notifyItemInserted(position)
     }
 
 
@@ -50,7 +50,7 @@ class HomeAdapter(private val posts: List<Post>)
             post?.let{
                 nameField!!.text = post.patientName
                 dateField!!.text = post.date!!.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
-                bodyField!!.text = "Center : "+post.donationCenter+"\n"+"Blood Type : "+post.bloodType
+                bodyField!!.text = "City : "+post.city+"\n"+"Blood Type : "+post.bloodType
             }
         }
 
