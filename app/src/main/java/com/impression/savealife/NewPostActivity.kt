@@ -30,6 +30,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
@@ -79,7 +80,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 @SuppressLint("LogNotTimber")
                 override fun onResponse(call: Call<Post>, response: Response<Post>) {
                     if(!response.isSuccessful){
-                        Log.d(TAG, "New Post.onClick : onResponse not Successful : $response")
+                        Log.d(TAG, "New Post.onClick : onResponse not Successful : $response \n$newPost")
                         Toast.makeText(this@NewPostActivity, "Response not Successful\nCode : "+response.code(), Toast.LENGTH_LONG).show()
                         return
                     }
@@ -130,7 +131,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         val details: String = detailsField.text.toString().trim()
 
         // Temporarly we passed donationCenter as a String, need to add the class 'Place' in the Server
-        return Post("", patientName, date, city,donationCenter.placeName,bloodType, details)
+        return Post("", patientName, city,donationCenter,bloodType, details)
     }
 
     private fun goToPlacePickerActivity() {

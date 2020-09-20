@@ -18,6 +18,7 @@ class NotificationsActivity : AppCompatActivity() {
 
     }
 
+    // Make it one function in Constants object
     fun bottomNavigationInitialize(selectedItemId: Int){
         //Initialization
         val bottomnavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)

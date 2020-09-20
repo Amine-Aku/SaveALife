@@ -55,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
         call.enqueue(object: Callback<List<Post>> {
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
                 Log.e(TAG, "retrofitCall : onFailure: ${t.message}")
-                Toast.makeText(this@HomeActivity, t.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HomeActivity, "Failed to Load Posts", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
@@ -65,8 +65,7 @@ class HomeActivity : AppCompatActivity() {
                     return
                 }
                 Log.d(TAG, "retrofitCall : onResponse: Call Successful")
-                list = response.body()
-                setRecyclerView(list!!)
+                setRecyclerView(response.body()!!)
 
 //                Toast.makeText(this@HomeActivity, response.body()!!.toString(), Toast.LENGTH_LONG).show()
             }
@@ -75,8 +74,10 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView(list: List<Post>){
-        recyclerView!!.layoutManager = LinearLayoutManager(this@HomeActivity)
+        val layoutManager = LinearLayoutManager(this@HomeActivity)
+        recyclerView!!.layoutManager = layoutManager
         adapter = HomeAdapter(list)
+
         recyclerView!!.adapter = adapter
         recyclerView!!.post{
             Log.d(TAG, "setRecyclerView: Data Change !")

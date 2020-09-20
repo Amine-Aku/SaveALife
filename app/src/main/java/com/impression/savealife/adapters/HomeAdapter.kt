@@ -49,9 +49,9 @@ class HomeAdapter(private val posts: List<Post>)
         fun setData(post: Post, pos: Int) {
             post?.let{
                 nameField!!.text = post.patientName
-                dateField!!.text = post.date!!.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+                dateField!!.text = post.date!!.toString()
                 bodyField!!.text = "City : " + post.city + "\n" +
-                        "Donation Center : " + post.donationCenter + "\n" +
+                        "Donation Center : " + post.donationCenter!!.placeName + "\n" +
                         "Blood Type : " + post.bloodType
             }
         }
