@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.core.app.NavUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ProfileActivity : AppCompatActivity() {
@@ -13,6 +14,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         title = resources.getString(R.string.profile)
         bottomNavigationInitialize(R.id.nav_profile)
 
@@ -30,6 +32,7 @@ class ProfileActivity : AppCompatActivity() {
 
 
     }
+
 
     fun bottomNavigationInitialize(selectedItemId: Int){
         //Initialization
@@ -59,5 +62,11 @@ class ProfileActivity : AppCompatActivity() {
             return@setOnNavigationItemSelectedListener false
 
         }
+    }
+
+    override fun onBackPressed() {
+        // Go back to the Parent Activity
+        NavUtils.navigateUpFromSameTask(this)
+        overridePendingTransition(0,0)
     }
 }

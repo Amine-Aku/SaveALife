@@ -3,6 +3,7 @@ package com.impression.savealife
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.NavUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class NotificationsActivity : AppCompatActivity() {
@@ -12,6 +13,7 @@ class NotificationsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_notifications)
 
         title = resources.getString(R.string.notifications)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         bottomNavigationInitialize(R.id.nav_notifications)
 
     }
@@ -44,5 +46,11 @@ class NotificationsActivity : AppCompatActivity() {
             return@setOnNavigationItemSelectedListener false
 
         }
+    }
+
+    override fun onBackPressed() {
+        // Go back to the Parent Activity
+        NavUtils.navigateUpFromSameTask(this)
+        overridePendingTransition(0,0)
     }
 }
