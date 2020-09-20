@@ -1,10 +1,10 @@
 package com.impression.savealife
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -77,7 +77,14 @@ class HomeActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this@HomeActivity)
         recyclerView!!.layoutManager = layoutManager
         adapter = HomeAdapter(list)
-
+        adapter!!.setOnItemClickListener(object : HomeAdapter.OnItemClickListener{
+            override fun onItemClick(pos: Int) {
+                Log.d(TAG, "onItemClick: Item Clicked : ${list[pos]}")
+                val intent = Intent(this@HomeActivity, PatientActivity::class.java)
+                intent.putExtra("patient", list[pos])
+                startActivity(intent)
+            }
+        })
         recyclerView!!.adapter = adapter
         recyclerView!!.post{
             Log.d(TAG, "setRecyclerView: Data Change !")

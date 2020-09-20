@@ -36,5 +36,7 @@
     <string name="not_specified">Not specified</string>
     <string name="enter_details">Enter your details here</string>
 
+    <string name="posted">Posted the : </string>
+
 
 </resources>

@@ -15,6 +15,8 @@ import java.time.format.DateTimeFormatter
 class HomeAdapter(private val posts: List<Post>)
     : RecyclerView.Adapter<HomeAdapter.PostHolder>(){
 
+    private lateinit var listener: OnItemClickListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_posts, parent, false)
         return PostHolder(view)
@@ -43,6 +45,13 @@ class HomeAdapter(private val posts: List<Post>)
             nameField = itemView.findViewById(R.id.home_post_name)
             dateField = itemView.findViewById(R.id.home_post_date)
             bodyField = itemView.findViewById(R.id.home_post_body)
+
+            itemView.setOnClickListener {
+                val pos = adapterPosition
+                if(pos != RecyclerView.NO_POSITION){
+                    listener.onItemClick(pos)
+                }
+            }
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
@@ -56,5 +65,13 @@ class HomeAdapter(private val posts: List<Post>)
             }
         }
 
+    }
+
+    interface OnItemClickListener{
+        fun onItemClick(pos: Int)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.listener = listener
     }
 }

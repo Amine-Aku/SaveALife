@@ -51,8 +51,7 @@
                 android:gravity="start"
                 android:minWidth="100dp" />
 
-            <ImageView
-                style="@style/spinner_arrow" />
+            <ImageView style="@style/spinner_arrow" />
 
         </LinearLayout>
 
@@ -85,9 +84,9 @@
                 style="@style/input_field_mini"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/center_donation_gps_btn"
                 android:hint="@string/not_specified"
-                android:minHeight="40dp"
-                android:layout_below="@id/center_donation_gps_btn" />
+                android:minHeight="40dp" />
 
 
         </RelativeLayout>
@@ -116,8 +115,7 @@
                 android:gravity="start"
                 android:minWidth="100dp" />
 
-            <ImageView
-                style="@style/spinner_arrow" />
+            <ImageView style="@style/spinner_arrow" />
         </LinearLayout>
 
 
@@ -129,17 +127,8 @@
 
         <EditText
             android:id="@+id/post_input_details"
-            style="@style/input_field_mini"
-            android:layout_width="320dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_input_text_area"
-            android:gravity="top"
-            android:hint="@string/enter_details"
-            android:inputType="textMultiLine"
-            android:minHeight="130dp"
-            android:padding="5dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp" />
+            style="@style/input_field_area"
+            android:hint="@string/enter_details" />
 
         <Button
             android:id="@+id/post_btn"
