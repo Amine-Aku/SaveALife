@@ -54,14 +54,17 @@ class HomeActivity : AppCompatActivity() {
         val call = ApiClient.getPostServices().getPosts()
         call.enqueue(object: Callback<List<Post>> {
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
+                Log.e(TAG, "retrofitCall : onFailure: ${t.message}")
                 Toast.makeText(this@HomeActivity, t.message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<List<Post>>, response: Response<List<Post>>) {
                 if(!response.isSuccessful){
+                    Log.d(TAG, "retrofitCall : onResponse : Not successful : Code : " +response.code())
                     Toast.makeText(this@HomeActivity, "Code : "+response.code(), Toast.LENGTH_LONG).show()
                     return
                 }
+                Log.d(TAG, "retrofitCall : onResponse: Call Successful")
                 list = response.body()
                 setRecyclerView(list!!)
 

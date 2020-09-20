@@ -43,9 +43,16 @@
                 android:layout_width="120dp"
                 android:text="@string/city" />
 
-            <EditText
-                android:id="@+id/post_input_city"
-                style="@style/input_field_mini" />
+            <Spinner
+                android:id="@+id/post_city_spinner"
+                style="@style/input_field_mini"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="start"
+                android:minWidth="100dp" />
+
+            <ImageView
+                style="@style/spinner_arrow" />
 
         </LinearLayout>
 
@@ -77,6 +84,9 @@
                 android:id="@+id/post_input_donation_center"
                 style="@style/input_field_mini"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/not_specified"
+                android:minHeight="40dp"
                 android:layout_below="@id/center_donation_gps_btn" />
 
 
@@ -99,7 +109,7 @@
             <!--                style="@style/input_field_mini" />-->
 
             <Spinner
-                android:id="@+id/bloodType_spinner"
+                android:id="@+id/post_bloodType_spinner"
                 style="@style/input_field_mini"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
@@ -107,12 +117,7 @@
                 android:minWidth="100dp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="-35dp"
-                android:src="@drawable/ic_arrow_drop_down"
-                android:tint="@color/colorPrimaryDark" />
+                style="@style/spinner_arrow" />
         </LinearLayout>
 
 

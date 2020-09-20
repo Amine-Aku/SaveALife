@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 class Post {
 
-    var id: Long? = null
     var user: String = ""
     var patientName: String = ""
     var date: String? = null
@@ -31,7 +30,7 @@ class Post {
 
 
     override fun toString(): String {
-        return "Post(id=$id, user='$user', patientName='$patientName', date=$date, city='$city', donationCenter='$donationCenter', bloodType='$bloodType', details='$details')"
+        return "Post(user='$user', patientName='$patientName', date=$date, city='$city', donationCenter='$donationCenter', bloodType='$bloodType', details='$details')"
     }
 
 }

@@ -42,7 +42,7 @@
     <style name="input_field">
         <item name="android:layout_width">300dp</item>
         <item name="android:layout_height">60dp</item>
-        <item name="android:textSize">22dp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/colorPrimaryLight</item>
@@ -54,11 +54,11 @@
 
     <style name="input_field_mini" parent="input_field">
         <item name="android:layout_height">40dp</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:layout_width">match_parent</item>
     </style>
-    
+
     <style name="post_titles">
         <item name="android:layout_width">160dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -68,9 +68,14 @@
 
     </style>
 
-
-
-
+    <style name="spinner_arrow">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">-35dp</item>
+        <item name="android:src">@drawable/ic_arrow_drop_down</item>
+        <item name="android:tint">@color/colorPrimaryDark</item>
+    </style>
 
 
 </resources>
