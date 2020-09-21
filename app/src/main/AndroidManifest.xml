@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.impression.savealife">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,30 +12,35 @@
         android:roundIcon="@mipmap/ic_launcher_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".activities.WelcomeActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.HomeActivity" />
         <activity
-            android:name=".NewPostActivity"
-            android:parentActivityName=".HomeActivity" />
+            android:name=".activities.NewPostActivity"
+            android:parentActivityName=".activities.HomeActivity" />
         <activity
-            android:name=".PatientActivity"
-            android:parentActivityName=".HomeActivity" />
-        <activity android:name=".NotificationsActivity"
-            android:parentActivityName=".HomeActivity" />
-        <activity android:name=".ProfileActivity"
-            android:parentActivityName=".HomeActivity" />
+            android:name=".activities.PatientActivity"
+            android:parentActivityName=".activities.HomeActivity" />
+        <activity android:name=".activities.MapActivity"
+            android:parentActivityName=".activities.PatientActivity"/>
         <activity
-            android:name=".HistoryActivity"
-            android:parentActivityName=".ProfileActivity" />
+            android:name=".activities.NotificationsActivity"
+            android:parentActivityName=".activities.HomeActivity" />
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:parentActivityName=".activities.HomeActivity" />
+        <activity
+            android:name=".activities.HistoryActivity"
+            android:parentActivityName=".activities.ProfileActivity" />
+
     </application>
 
 </manifest>

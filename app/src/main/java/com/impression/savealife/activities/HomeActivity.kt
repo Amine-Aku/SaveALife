@@ -1,4 +1,4 @@
-package com.impression.savealife
+package com.impression.savealife.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.impression.savealife.*
 import com.impression.savealife.adapters.HomeAdapter
 import com.impression.savealife.api.ApiClient
 import com.impression.savealife.models.Post

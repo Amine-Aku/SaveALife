@@ -1,9 +1,10 @@
-package com.impression.savealife
+package com.impression.savealife.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.impression.savealife.R
 
 class WelcomeActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.impression.savealife
+package com.impression.savealife.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.core.app.NavUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.impression.savealife.R
 
 class ProfileActivity : AppCompatActivity() {
 

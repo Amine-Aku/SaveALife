@@ -12,7 +12,7 @@
         android:background="@drawable/bg_history_text_area"
         android:orientation="vertical"
         android:padding="20dp"
-        tools:context=".NewPostActivity">
+        tools:context=".activities.NewPostActivity">
 
         <!--Patient name-->
 
@@ -76,7 +76,7 @@
                 android:layout_height="35dp"
                 android:layout_marginStart="20dp"
                 android:layout_toRightOf="@id/center_donation_label"
-                android:src="@drawable/ic_location_on_black_24dp"
+                android:src="@drawable/ic_location_marker"
                 android:tint="@color/colorPrimaryDark" />
 
             <TextView

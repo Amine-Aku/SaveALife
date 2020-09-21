@@ -1,4 +1,4 @@
-package com.impression.savealife
+package com.impression.savealife.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -11,26 +11,22 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.core.app.NavUtils
+import com.impression.savealife.R
 import com.impression.savealife.api.ApiClient
 import com.impression.savealife.api.MapboxToken
 import com.impression.savealife.models.Constants
 import com.impression.savealife.models.Place
-import com.impression.savealife.services.PostServices
 import com.impression.savealife.models.Post
 import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.camera.CameraPosition
-import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.plugins.places.picker.PlacePicker
 import com.mapbox.mapboxsdk.plugins.places.picker.model.PlacePickerOptions
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 

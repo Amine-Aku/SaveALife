@@ -1,5 +1,6 @@
-package com.impression.savealife
+package com.impression.savealife.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -7,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
+import com.impression.savealife.R
 import com.impression.savealife.models.Place
 import com.impression.savealife.models.Post
 
@@ -48,9 +50,14 @@ class PatientActivity : AppCompatActivity() {
 
     private fun openMap(){
         Toast.makeText(this, "Open Map Activity", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MapActivity::class.java)
+        intent.putExtra("center", post.donationCenter)
+        intent.putExtra("patientName", post.patientName)
+        startActivity(intent)
     }
 
     override fun onBackPressed() {
         NavUtils.navigateUpFromSameTask(this)
+        overridePendingTransition(0,0)
     }
 }
