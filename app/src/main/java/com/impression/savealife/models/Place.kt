@@ -3,6 +3,7 @@ package com.impression.savealife.models
 import android.os.Parcel
 import android.os.Parcelable
 import com.mapbox.geojson.Point
+import com.mapbox.mapboxsdk.geometry.LatLng
 
 
 class Place(private var title: String?, private var lat: Double, private var lng: Double, private var city: String?, var placeName: String?)
@@ -17,9 +18,12 @@ class Place(private var title: String?, private var lat: Double, private var lng
     ) {
     }
 
-    private fun getPoint(): Point{
-        return Point.fromLngLat(lng, lat)
-    }
+    fun getPoint(): Point =  Point.fromLngLat(lng, lat)
+
+
+    fun getLatLng(): LatLng = LatLng(lat, lng)
+
+
 
     override fun toString(): String {
         return "Place(title='$title', lat=$lat, lng=$lng, city='$city', placeName='$placeName')"

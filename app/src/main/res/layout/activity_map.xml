@@ -15,7 +15,7 @@
         app:mapbox_cameraZoom="12" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/location_button"
+        android:id="@+id/device_location_button"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_alignParentEnd="true"
@@ -24,5 +24,17 @@
         android:backgroundTint="@color/colorPrimary"
         android:tint="@android:color/white"
         android:src="@drawable/ic_location_this"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/center_location_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:tint="@android:color/white"
+        android:src="@drawable/ic_location_marker"
+        android:layout_below="@id/device_location_button"/>
 
 </RelativeLayout>

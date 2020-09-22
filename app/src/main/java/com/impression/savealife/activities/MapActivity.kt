@@ -1,17 +1,27 @@
 package com.impression.savealife.activities
 
+import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.JsonObject
 import com.impression.savealife.R
 import com.impression.savealife.api.MapboxToken
 import com.impression.savealife.models.Place
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
+import com.mapbox.api.geocoding.v5.models.CarmenFeature
+import com.mapbox.geojson.Feature
+import com.mapbox.geojson.FeatureCollection
 import com.mapbox.mapboxsdk.Mapbox
+import com.mapbox.mapboxsdk.camera.CameraPosition
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
+import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
 import com.mapbox.mapboxsdk.location.LocationComponentOptions
 import com.mapbox.mapboxsdk.location.modes.CameraMode
@@ -21,7 +31,9 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.localization.LocalizationPlugin
-import kotlinx.android.synthetic.main.activity_map.*
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory
+import com.mapbox.mapboxsdk.style.layers.SymbolLayer
+import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 
 class MapActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback {
 
@@ -33,6 +45,9 @@ class MapActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback
     private lateinit var localizationPlugin: LocalizationPlugin
 
     private lateinit var donationCenter: Place
+
+    private val geojsonSourceLayerId = "geojsonSourceLayerId"
+    private val symbolIconId = "symbolIconId"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,13 +70,51 @@ class MapActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback
         this.mapBoxMap = mapboxMap
         mapboxMap.setStyle(Style.MAPBOX_STREETS){style->
             matchMapLanguageWithDevice(mapView, mapboxMap, style)
-            findViewById<FloatingActionButton>(R.id.location_button).setOnClickListener {
-                enableLocationComponent(style)
+            getDonationCenterLocation(style)
+            findViewById<FloatingActionButton>(R.id.device_location_button).setOnClickListener {
+                getDeviceLocation(style)
             }
+            findViewById<FloatingActionButton>(R.id.center_location_button).setOnClickListener {
+                animateCamemra(donationCenter.getLatLng(), 1000)
+            }
+
         }
     }
 
-    private fun enableLocationComponent(loadedMapStyle: Style){
+    private fun getCarmenFeatureFromPlace(place: Place): CarmenFeature{
+        return CarmenFeature.builder().text(place.placeName!!.substringBefore(','))
+            .geometry(donationCenter.getPoint())
+            .placeName(place.placeName)
+            .id("donation_center_id")
+            .properties(JsonObject())
+            .build();
+    }
+
+
+    private fun setupSymbolLayer(style: Style){
+        style.apply{
+            addImage(symbolIconId, getDrawable(R.drawable.ic_location_marker)!!)
+            addSource(GeoJsonSource(geojsonSourceLayerId))
+            addLayer(
+                SymbolLayer("SYMBOL_LAYER_ID", geojsonSourceLayerId)
+                    .withProperties(
+                        PropertyFactory.iconImage(symbolIconId),
+                        PropertyFactory.iconOffset(arrayOf(0f, -8f))
+                    ))
+            getSourceAs<GeoJsonSource>(geojsonSourceLayerId)?.setGeoJson(
+                FeatureCollection.fromFeatures(
+                    arrayOf(Feature.fromJson(getCarmenFeatureFromPlace(donationCenter).toJson()))))
+        }
+    }
+
+    private fun getDonationCenterLocation(style: Style) {
+        setupSymbolLayer(style)
+        animateCamemra(donationCenter.getLatLng(), 4000)
+
+    }
+
+    //enableLocationComponent
+    private fun getDeviceLocation(loadedMapStyle: Style){
         // Check if permissions are enabled and if not request
         if(PermissionsManager.areLocationPermissionsGranted(this)){
 
@@ -101,6 +154,14 @@ class MapActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback
 
     }
 
+    private fun animateCamemra(latLng: LatLng, duration: Int){
+        mapBoxMap.animateCamera(CameraUpdateFactory.newCameraPosition(
+            CameraPosition.Builder()
+                .target(latLng)
+                .zoom(15.0)
+                .build()), duration)
+    }
+
     private fun matchMapLanguageWithDevice(v: MapView, m: MapboxMap, s: Style) {
         localizationPlugin = LocalizationPlugin(v, m, s)
         localizationPlugin.matchMapLanguageWithDeviceDefault(true)
@@ -113,7 +174,7 @@ class MapActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback
     override fun onPermissionResult(granted: Boolean) {
         if(granted){
             Log.d(TAG, "onPermissionResult: User location permission granted")
-            enableLocationComponent(mapBoxMap.style!!)
+            getDeviceLocation(mapBoxMap.style!!)
         }
         else {
             Log.i(TAG, "onPermissionResult: User location permission not granted")
