@@ -60,5 +60,9 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0'
     //match device language
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-localization-v9:0.12.0'
-
+    //Navigation SDK
+//    implementation 'com.mapbox.navigation:core:1.0.0-rc.8'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.9.0'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.43.0-SNAPSHOT'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
 }

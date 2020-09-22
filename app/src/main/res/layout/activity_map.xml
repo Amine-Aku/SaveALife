@@ -22,19 +22,42 @@
         android:layout_marginTop="70dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/colorPrimary"
-        android:tint="@android:color/white"
-        android:src="@drawable/ic_location_this"/>
+        android:src="@drawable/ic_location_this"
+        android:tint="@android:color/white" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/center_location_button"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_below="@id/device_location_button"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/colorPrimary"
-        android:tint="@android:color/white"
         android:src="@drawable/ic_location_marker"
-        android:layout_below="@id/device_location_button"/>
+        android:tint="@android:color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/center_direction_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_direction_arrow"
+        android:tint="@android:color/white" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/launch_navigation_assistant_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginVertical="16dp"
+        android:layout_toLeftOf="@id/center_direction_button"
+        android:backgroundTint="@color/colorPrimaryLight"
+        android:src="@drawable/ic_navigation_arrow"
+        android:tint="@color/colorPrimaryDark"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

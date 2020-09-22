@@ -5,18 +5,20 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
         maven {
-            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+//            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            url 'https://api.mapbox.com/downloads/v2/snapshots/maven'
             authentication {
                 basic(BasicAuthentication)
             }
             credentials {
-                username = 'akuryuu'
+           //akuryuu
+                username = 'mapbox'
                 // Use the secret token you stored in gradle.properties as the password
                 password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
             }
         }
-        
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.1'
@@ -31,6 +33,8 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
+        maven {url 'https://mapbox.bintray.com/mapbox'}
         
     }
 }
