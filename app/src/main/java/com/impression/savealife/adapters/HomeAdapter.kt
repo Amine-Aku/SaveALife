@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.impression.savealife.R
+import com.impression.savealife.models.Place
 import com.impression.savealife.models.Post
 import java.time.format.DateTimeFormatter
 
@@ -60,10 +61,14 @@ class HomeAdapter(private val posts: List<Post>)
                 nameField!!.text = post.patientName
                 dateField!!.text = post.date!!.toString()
                 bodyField!!.text = "City : " + post.city + "\n" +
-                        "Donation Center : " + post.donationCenter!!.placeName + "\n" +
+                        "Donation Center : " + getDonationCenterPlaceName(post.donationCenter) + "\n" +
                         "Blood Type : " + post.bloodType
             }
         }
+
+        private fun getDonationCenterPlaceName(donationCenter: Place?): String? = if(donationCenter != null) donationCenter!!.placeName ; else ""
+
+
 
     }
 

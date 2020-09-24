@@ -97,7 +97,6 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     }
 
 
-
     private fun init(){
         gpsBtn = findViewById(R.id.center_donation_gps_btn)
         postBtn = findViewById(R.id.post_btn)
