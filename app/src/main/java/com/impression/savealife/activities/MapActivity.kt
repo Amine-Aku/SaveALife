@@ -80,6 +80,7 @@ class MapActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback
     }
 
     override fun onMapReady(mapboxMap: MapboxMap) {
+//        init map and buttons
         this.mapBoxMap = mapboxMap
         mapboxMap.setStyle(Style.MAPBOX_STREETS){style->
             matchMapLanguageWithDevice(mapView, mapboxMap, style)

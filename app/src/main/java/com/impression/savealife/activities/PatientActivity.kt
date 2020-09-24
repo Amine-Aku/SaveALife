@@ -48,6 +48,7 @@ class PatientActivity : AppCompatActivity() {
         }
     }
 
+
     private fun openMap(){
         Toast.makeText(this, "Open Map Activity", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MapActivity::class.java)

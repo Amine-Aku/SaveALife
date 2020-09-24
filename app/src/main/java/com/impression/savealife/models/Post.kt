@@ -31,7 +31,7 @@ class Post() : Parcelable {
     }
 
 
-    constructor(user: String, patientName: String, city: String, donationCenter: Place, bloodType: String, details: String) : this() {
+    constructor(user: String, patientName: String, city: String, donationCenter: Place?, bloodType: String, details: String) : this() {
         this.user = user
         this.patientName = patientName
         this.city = city

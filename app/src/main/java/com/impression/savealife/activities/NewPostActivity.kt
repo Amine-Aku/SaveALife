@@ -43,7 +43,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
 
 //    private lateinit var bloodType: String
-    private lateinit var donationCenter: Place
+    private var donationCenter: Place? = null
 
 
 
@@ -65,6 +65,12 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         postBtn.setOnClickListener {
 //            Fetsh data from the Inputs fields
             val newPost = getNewPostFromFields()
+            if(newPost == null) {
+                Log.d(TAG, "postBtn.setOnClickListener : newPost is null")
+                fastToast("Enter Patient Name & City")
+                return@setOnClickListener
+            }
+            Log.d(TAG, "postBtn.setOnClickListener : newPost is not null")
             val call = ApiClient.getPostServices().addPost(newPost)
 
             call.enqueue(object: Callback<Post>{
@@ -90,7 +96,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         }
     }
 
-    private fun selectedCity(): String = citySpinner.selectedItem.toString()
+
 
     private fun init(){
         gpsBtn = findViewById(R.id.center_donation_gps_btn)
@@ -113,22 +119,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         spinner.setSelection(0) // default selected item 0
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun getNewPostFromFields(): Post{
-//        Fetsh data from the Inputs fields
-        val patientName= patientNameField.text.toString().trim()
-
-        val format = DateTimeFormatter.ofPattern("dd/MM/yyyy [HH:mm:ss]")
-
-//        Cannot add format to date cuz it doesn't match the Date Class in the server
-        val date = LocalDateTime.now().toString()
-        val bloodType = bloodTypeSpinner.selectedItem.toString()
-        val city = selectedCity()
-        val details: String = detailsField.text.toString().trim()
-
-        // Temporarly we passed donationCenter as a String, need to add the class 'Place' in the Server
-        return Post("", patientName, city,donationCenter,bloodType, details)
-    }
+    private fun selectedCity(): String = citySpinner.selectedItem.toString()
 
     private fun goToPlacePickerActivity() {
 //        val latLng = LatLng(40.7544, -73.9862)
@@ -149,6 +140,25 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                         .build())
                 .build(this), PLACE_PICKER_REQUEST_CODE);
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getNewPostFromFields(): Post? {
+//        Fetsh data from the Inputs fields
+        val patientName= patientNameField.text.toString().trim()
+
+        val format = DateTimeFormatter.ofPattern("dd/MM/yyyy [HH:mm:ss]")
+
+//        Cannot add format to date cuz it doesn't match the Date Class in the server
+        val date = LocalDateTime.now().toString()
+        val bloodType = bloodTypeSpinner.selectedItem.toString()
+        val city = selectedCity()
+        val details: String = detailsField.text.toString().trim()
+        return if(fieldsAreValid(patientName, city))
+            Post("", patientName, city,donationCenter,bloodType, details)
+        else null
+    }
+
+    private fun fieldsAreValid(patientName: String, city: String): Boolean = !(patientName == "" || city == "")
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -172,7 +182,6 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         }
     }
 
-
     override fun onNothingSelected(parent: AdapterView<*>?) {
         Log.d(TAG, "onNothingSelected: No Blood Type is selected in the spinner")
     }
@@ -187,4 +196,6 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     override fun onBackPressed() {
         NavUtils.navigateUpFromSameTask(this)
     }
+
+    private fun fastToast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }

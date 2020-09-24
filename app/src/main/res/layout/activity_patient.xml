@@ -34,7 +34,7 @@
             android:background="@drawable/bg_article_header"
             android:gravity="center"
             android:text="Amine Fattas"
-            android:textSize="24sp" />
+            android:textSize="22sp" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -58,7 +58,7 @@
 
                 <TextView
                     android:id="@+id/center_donation_label"
-                    style="@style/post_titles"
+                    style="@style/post_labels"
                     android:layout_marginTop="8dp"
                     android:text="@string/donation_center" />
 
@@ -102,7 +102,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    style="@style/post_titles"
+                    style="@style/post_labels"
                     android:layout_width="100dp"
                     android:text="@string/blood_type" />
 
@@ -115,7 +115,7 @@
 
             <!--details-->
             <TextView
-                style="@style/post_titles"
+                style="@style/post_labels"
                 android:layout_marginTop="15dp"
                 android:text="@string/details" />
 
