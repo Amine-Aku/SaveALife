@@ -1,5 +1,8 @@
 package com.impression.savealife.models
 
+import android.content.Context
+import android.widget.Toast
+
 object Constants {
     val BLOOD_TYPE_LIST = arrayListOf(
         "None", "O+","O-", "A+", "A-", "B+", "B-", "AB+", "AB-"
@@ -18,6 +21,8 @@ object Constants {
         }
         return list
     }
+
+    fun fastToast(context: Context, msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
 
 

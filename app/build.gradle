@@ -31,7 +31,7 @@ android {
     sourceSets {
         main {
             res {
-                srcDirs 'src/main/res', 'src/main/res_mapbox', 'src/main/res/mapbox'
+                srcDirs 'src/main/res', 'src/main/res/items_res'
             }
         }
     }

@@ -13,12 +13,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/bg_article_header"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/notification_name"
+                android:id="@+id/notification_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingLeft="7dp"
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|end"
-                android:paddingRight="7dp"
+                android:paddingHorizontal="7dp"
                 android:text="10/08/2020 (14:58)"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
@@ -40,7 +40,7 @@
 
 
         <TextView
-            android:id="@+id/notification_text"
+            android:id="@+id/notification_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="40dp"

@@ -8,7 +8,7 @@ import retrofit2.http.POST
 
 interface NotificationServices {
 
-    @GET("home/posts")
+    @GET("notification/get")
     fun getNotifications(): Call<List<Notification>>
 
     @POST("notification/add")
