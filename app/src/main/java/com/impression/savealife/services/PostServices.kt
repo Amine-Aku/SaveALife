@@ -7,9 +7,10 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface PostServices {
-    @GET("posts")
+
+    @GET("home/posts")
     fun getPosts(): Call<List<Post>>
 
-    @POST("add")
+    @POST("home/add")
     fun addPost(@Body post: Post): Call<Post>
 }

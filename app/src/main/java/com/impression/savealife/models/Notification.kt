@@ -4,26 +4,23 @@ import java.util.*
 
 class Notification {
     var id: Long? = null
-    var date: Date? = null
-    var destination: Appuser? = null
-    var body: String? = null
+    var date: String? = null
+    var title: String = ""
+    var body: String = ""
+    var topic: String? = null
+    var token: String? = null
+
+    constructor(title: String, body: String, topic: String) {
+        this.title = title
+        this.body = body
+        this.topic = topic
+    }
 
     //    Construtors
-    constructor(id: Long?, date: Date?, destination: Appuser?, body: String?) {
-        this.id = id
-        this.date = date
-        this.destination = destination
-        this.body = body
-    }
 
-    constructor(date: Date?, destination: Appuser?, body: String?) {
-        this.date = date
-        this.destination = destination
-        this.body = body
-    }
 
     override fun toString(): String {
-        return "Notification(id=$id, date=$date, destination=$destination, body=$body)"
+        return "Notification(id=$id, date=$date, title='$title', body='$body', topic='$topic', token='$token')"
     }
 
 

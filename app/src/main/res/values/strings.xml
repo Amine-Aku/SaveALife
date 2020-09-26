@@ -39,4 +39,8 @@
     <string name="posted">Posted the : </string>
 
 
+<!--    Notification-->
+    <string name="notification_title">SOS ! Someone needs you !</string>
+    <string name="notification_body">needs your blood, please save his life</string>
+
 </resources>

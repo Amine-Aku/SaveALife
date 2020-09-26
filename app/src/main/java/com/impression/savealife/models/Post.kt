@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 class Post() : Parcelable {
 
-    var user: String? = ""
+    private var poster: Appuser? = null
     var patientName: String? = ""
 //    @JsonFormat(pattern = "dd/MM/yyyy [HH:mm:ss]")
     var date: String? = null
@@ -21,7 +21,7 @@ class Post() : Parcelable {
     var details: String? = ""
 
     constructor(parcel: Parcel) : this() {
-        user = parcel.readString()
+        poster = parcel.readParcelable(Appuser::class.java.classLoader)
         patientName = parcel.readString()
         date = parcel.readString()
         city = parcel.readString()
@@ -31,8 +31,8 @@ class Post() : Parcelable {
     }
 
 
-    constructor(user: String, patientName: String, city: String, donationCenter: Place?, bloodType: String, details: String) : this() {
-        this.user = user
+    constructor(poster: Appuser?, patientName: String, city: String, donationCenter: Place?, bloodType: String, details: String) : this() {
+        this.poster = poster
         this.patientName = patientName
         this.city = city
         this.donationCenter = donationCenter
@@ -43,11 +43,11 @@ class Post() : Parcelable {
 
 
     override fun toString(): String {
-        return "Post(user='$user', patientName='$patientName', date=$date, city='$city', donationCenter='$donationCenter', bloodType='$bloodType', details='$details')"
+        return "Post(poster='$poster', patientName='$patientName', date=$date, city='$city', donationCenter='$donationCenter', bloodType='$bloodType', details='$details')"
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(user)
+        parcel.writeParcelable(poster, flags)
         parcel.writeString(patientName)
         parcel.writeString(date)
         parcel.writeString(city)

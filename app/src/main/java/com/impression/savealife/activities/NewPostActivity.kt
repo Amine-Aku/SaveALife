@@ -15,6 +15,7 @@ import com.impression.savealife.R
 import com.impression.savealife.api.ApiClient
 import com.impression.savealife.api.MapboxToken
 import com.impression.savealife.models.Constants
+import com.impression.savealife.models.Notification
 import com.impression.savealife.models.Place
 import com.impression.savealife.models.Post
 import com.mapbox.geojson.Point
@@ -75,19 +76,21 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
             call.enqueue(object: Callback<Post>{
                 override fun onFailure(call: Call<Post>, t: Throwable) {
-                    Log.e(TAG, "onFailure: ${t.message}")
+                    Log.e(TAG, "New Post.onClick : onFailure: ${t.message}")
                     Toast.makeText(this@NewPostActivity, t.message, Toast.LENGTH_SHORT).show()
                 }
 
                 @SuppressLint("LogNotTimber")
                 override fun onResponse(call: Call<Post>, response: Response<Post>) {
                     if(!response.isSuccessful){
-                        Log.d(TAG, "New Post.onClick : onResponse not Successful : $response \n$newPost")
+                        Log.e(TAG, "New Post.onClick : onResponse not Successful : $response \n$newPost")
                         Toast.makeText(this@NewPostActivity, "Response not Successful\nCode : "+response.code(), Toast.LENGTH_LONG).show()
                         return
                     }
                     Toast.makeText(this@NewPostActivity, "Your Post has been created", Toast.LENGTH_SHORT).show()
                     val newPost = response.body()
+                    // Send Notification
+                    createNotificationFromPost(newPost!!)
                     Log.d(TAG, "New Post.onClick : onResponse Successful: New Post Created : $newPost")
                     Log.d(TAG, "New Post.onClick : onResponse Successful : Donation Center : $donationCenter")
                     NavUtils.navigateUpFromSameTask(this@NewPostActivity)
@@ -96,6 +99,50 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         }
     }
 
+    private fun createNotificationFromPost(post: Post){
+        val title = getString(R.string.notification_title)
+        val body = post!!.patientName + " " +getString(R.string.notification_body)
+        val notification = Notification(title, body, post.city!!)
+        val registerNotifCall = ApiClient.getNotificationServices().addNotification(notification)
+
+        // register notif in the BD then send it to users
+        registerNotifCall.enqueue(object : Callback<Notification>{
+            override fun onFailure(call: Call<Notification>, t: Throwable) {
+                Log.e(TAG, "createNotificationFromPost-register: onFailure: ${t.message}")
+                Toast.makeText(this@NewPostActivity, t.message, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<Notification>, response: Response<Notification>) {
+                if(!response.isSuccessful){
+                    Log.e(TAG, "createNotificationFromPost-register : onResponse not Successful : $response \n$notification")
+                    return
+                }
+                val newNotification = response.body()
+                Log.d(TAG, "createNotificationFromPost-register: onResponse: Successful: $newNotification")
+
+//                send notif to users
+//                val sendNotifCall = ApiClient.getNotificationServices().sendPushNotificationToTopic(notification)
+//                sendNotifCall.enqueue(object : Callback<Notification>{
+//                    override fun onFailure(call: Call<Notification>, t: Throwable) {
+//                        Log.e(TAG, "createNotificationFromPost-send : onFailure: ${t.message}")
+//                        Toast.makeText(this@NewPostActivity, t.message, Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                    override fun onResponse(call: Call<Notification>, response: Response<Notification>) {
+//                        if(!response.isSuccessful){
+//                            Log.e(TAG, "createNotificationFromPost-send : onResponse not Successful : $response \n$notification")
+//                            return
+//                        }
+//                        val sentNotification = response.body()
+//                        Log.d(TAG, "createNotificationFromPost-send: onResponse: Successful !")
+//
+//                    }
+//                })
+            }
+        })
+
+
+    }
 
     private fun init(){
         gpsBtn = findViewById(R.id.center_donation_gps_btn)
@@ -153,7 +200,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         val city = selectedCity()
         val details: String = detailsField.text.toString().trim()
         return if(fieldsAreValid(patientName, city))
-            Post("", patientName, city,donationCenter,bloodType, details)
+            Post(null, patientName, city,donationCenter,bloodType, details)
         else null
     }
 
