@@ -9,19 +9,19 @@ class Notification {
     var body: String = ""
     var topic: String? = null
     var token: String? = null
-    var data: Map<String, String>? = null
+    var userId: String? = null
 
     //    Construtors
 
-    constructor(title: String, body: String, topic: String, data: Map<String, String>? = null) {
+    constructor(title: String, body: String, topic: String, userId: String? = null) {
         this.title = title
         this.body = body
         this.topic = topic
-        this.data = data
+        this.userId = userId
     }
 
     override fun toString(): String {
-        return "Notification(id=$id, date=$date, title='$title', body='$body', topic=$topic, token=$token, data=$data)"
+        return "Notification(id=$id, date=$date, title='$title', body='$body', topic=$topic, token=$token, data=$userId)"
     }
 
 

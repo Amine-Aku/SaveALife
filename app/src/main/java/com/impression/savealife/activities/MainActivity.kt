@@ -3,12 +3,16 @@ package com.impression.savealife.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import com.google.firebase.FirebaseException
 import com.google.firebase.messaging.FirebaseMessaging
 import com.impression.savealife.R
+import com.impression.savealife.models.Cst
 
 class MainActivity : AppCompatActivity() {
 
+    private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,8 +20,8 @@ class MainActivity : AppCompatActivity() {
 
         title = resources.getString(R.string.app_name)
 
-//        FirebaseMessaging.getInstance().subscribeToTopic("Marrakech")
-//        FirebaseMessaging.getInstance().unsubscribeFromTopic("Marrakech")
+        Cst.subscribeToTopic("all_users")
+
 
     }
 

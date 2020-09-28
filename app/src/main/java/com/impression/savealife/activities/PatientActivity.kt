@@ -5,11 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import com.impression.savealife.R
-import com.impression.savealife.models.Constants
+import com.impression.savealife.models.Cst
 import com.impression.savealife.models.Place
 import com.impression.savealife.models.Post
 
@@ -54,11 +53,11 @@ class PatientActivity : AppCompatActivity() {
 
     private fun openMap(){
         if(donationCenter == null) {
-            Constants.fastToast(this, "No donation Center informed")
+            Cst.fastToast(this, "No donation Center informed")
             Log.d(TAG, "openMap: No donation Center informed")
         }
         else {
-            Constants.fastToast(this, "Opening Map")
+            Cst.fastToast(this, "Opening Map")
             Log.d(TAG, "openMap: Open Map Activity")
             val intent = Intent(this, MapActivity::class.java)
             intent.putExtra("center", post.donationCenter)

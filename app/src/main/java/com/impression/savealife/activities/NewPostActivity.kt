@@ -14,7 +14,7 @@ import androidx.core.app.NavUtils
 import com.impression.savealife.R
 import com.impression.savealife.api.ApiClient
 import com.impression.savealife.api.MapboxToken
-import com.impression.savealife.models.Constants
+import com.impression.savealife.models.Cst
 import com.impression.savealife.models.Notification
 import com.impression.savealife.models.Place
 import com.impression.savealife.models.Post
@@ -102,11 +102,8 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     private fun createNotificationFromPost(post: Post){
         val title = getString(R.string.notification_title)
         val body = post!!.patientName + " " +getString(R.string.notification_body)
-        val data = mapOf<String, String>(
-            "user_id" to Constants.USER_ID.toString(),
-            "patientName" to post!!.patientName!!
-        )
-        val notification = Notification(title, body, post.city!!, data)
+        val userId = Cst.USER_ID.toString()
+        val notification = Notification(title, body, post.city!!, userId)
         val registerNotifCall = ApiClient.getNotificationServices().addNotification(notification)
 
         // register notif in the BD then send it to users
@@ -157,8 +154,8 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         bloodTypeSpinner = findViewById(R.id.post_bloodType_spinner)
         detailsField = findViewById(R.id.post_input_details)
 
-        setSpinner(citySpinner, Constants.CITY_NAMES_LIST())
-        setSpinner(bloodTypeSpinner, Constants.BLOOD_TYPE_LIST)
+        setSpinner(citySpinner, Cst.CITY_NAMES_LIST())
+        setSpinner(bloodTypeSpinner, Cst.BLOOD_TYPE_LIST)
     }
 
     private fun setSpinner(spinner: Spinner, list: List<String>) {
@@ -175,7 +172,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 //        val latLng = LatLng(40.7544, -73.9862)
 //        val latLng = LatLng(-7.994885,31.664051)
         val cityName = selectedCity()
-        val city = Constants.CITY_LIST.filter { it.name == cityName }
+        val city = Cst.CITY_LIST.filter { it.name == cityName }
 //        val latLng = LatLng(31.664051, -7.994885)
         val latLng = city[0].getLatlng()
         Log.d(TAG, "goToPlacePickerActivity: Open Picker on : ${city[0].toString()}")
@@ -247,5 +244,5 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         NavUtils.navigateUpFromSameTask(this)
     }
 
-    private fun fastToast(msg: String) = Constants.fastToast(this@NewPostActivity, msg)
+    private fun fastToast(msg: String) = Cst.fastToast(this@NewPostActivity, msg)
 }

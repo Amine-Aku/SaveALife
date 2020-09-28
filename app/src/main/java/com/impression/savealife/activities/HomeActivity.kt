@@ -14,7 +14,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.impression.savealife.*
 import com.impression.savealife.adapters.HomeAdapter
 import com.impression.savealife.api.ApiClient
-import com.impression.savealife.models.Constants
+import com.impression.savealife.models.Cst
 import com.impression.savealife.models.Post
 import retrofit2.Call
 import retrofit2.Callback
@@ -84,27 +84,31 @@ class HomeActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this@HomeActivity)
         adapter = HomeAdapter(list)
         var pos: Int = 0
-        if(intent != null && intent.hasExtra("patientName")){
-             val patientName = intent.extras!!.getString("patientName")!!.trim()
-
+        if(intent != null && intent.hasExtra("patientName")) postExist@{
+            val patientName = intent.extras!!.getString("patientName")!!.trim()
+            var nameFound = false
             list.forEachIndexed lit@{ index, post ->
                 if(post.patientName == patientName){
                     pos = index
                     layoutManager.scrollToPosition(pos)
                     Log.d(TAG, "setRecyclerView: Position: $pos")
                     setupAdapter(list, layoutManager, patientName, pos)
-                    Log.d(TAG, "setRecyclerView: setupAdapter WAY : 1")
+                    Log.d(TAG, "setRecyclerView: setupAdapter Notification clicked & Post found, WAY 1")
+                    nameFound = true
                     return@lit
                 }
+            }
+            if(!nameFound){
+                setupAdapter(list, layoutManager, null, null)
+                Log.i(TAG, "setRecyclerView: setupAdapter: Notification clicked & Post not found, Way 2")
+                //  PROBLEM : Always Called in 1 of the Recycler View 2 calls
+//                Cst.fastToast(this, "Post not found or deleted")
             }
         }
         else{
             setupAdapter(list, layoutManager, null, null)
-            Log.d(TAG, "setRecyclerView: setupAdapter WAY : 3")
+            Log.d(TAG, "setRecyclerView: setupAdapter default, WAY 3")
         }
-
-
-
     }
 
     private fun setupAdapter(list: List<Post>, layoutManager: LinearLayoutManager, patientName: String?, position: Int?) {

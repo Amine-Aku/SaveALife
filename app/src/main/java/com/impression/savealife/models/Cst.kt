@@ -2,8 +2,18 @@ package com.impression.savealife.models
 
 import android.content.Context
 import android.widget.Toast
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 
-object Constants {
+//object that contains all the constants used in this App
+object Cst {
+
+    val USER_ID = 1
+
+    val CHANNEL_1_ID = "New Post Notification"
+
+    var isSelected = false
+
     val BLOOD_TYPE_LIST = arrayListOf(
         "None", "O+","O-", "A+", "A-", "B+", "B-", "AB+", "AB-"
     )
@@ -24,9 +34,10 @@ object Constants {
 
     fun fastToast(context: Context, msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
-    val USER_ID = 1
+    fun subscribeToTopic(topic: String): Task<Void> = FirebaseMessaging.getInstance().subscribeToTopic(topic)
+    fun unsubscribeFromTopic(topic: String) = FirebaseMessaging.getInstance().subscribeToTopic(topic)
 
-    var isSelected = false
+
 
 
 

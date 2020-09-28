@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.impression.savealife.R
 import com.impression.savealife.adapters.NotificationsAdapter
 import com.impression.savealife.api.ApiClient
-import com.impression.savealife.models.Constants
+import com.impression.savealife.models.Cst
 import com.impression.savealife.models.Notification
 import retrofit2.Call
 import retrofit2.Callback
@@ -75,11 +75,12 @@ class NotificationsActivity : AppCompatActivity() {
             override fun onItemClick(pos: Int) {
                 Log.d(TAG, "onItemClick: Item Clicked : ${list[pos]}")
                 val notif = list[pos]
-                Constants.fastToast(this@NotificationsActivity, "You clicked ${notif.title}")
+//                Cst.fastToast(this@NotificationsActivity, "You clicked ${notif.title}")
                 val patientName = notif.body.substringBefore(getString(R.string.notification_delimiter))
                 val intent = Intent(this@NotificationsActivity, HomeActivity::class.java)
                 intent.putExtra("patientName", patientName)
                 startActivity(intent)
+                overridePendingTransition(0, 0)
             }
         })
         recyclerView!!.adapter = adapter

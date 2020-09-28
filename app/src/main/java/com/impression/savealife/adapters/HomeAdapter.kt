@@ -1,6 +1,5 @@
 package com.impression.savealife.adapters
 
-import android.content.Context
 import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,10 +10,8 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.impression.savealife.R
-import com.impression.savealife.models.Constants
 import com.impression.savealife.models.Place
 import com.impression.savealife.models.Post
-import java.time.format.DateTimeFormatter
 
 class HomeAdapter(private val posts: List<Post>, var selectedPosition: Int? = null)
     : RecyclerView.Adapter<HomeAdapter.PostHolder>() {
