@@ -17,7 +17,7 @@ import com.impression.savealife.models.Post
 import java.time.format.DateTimeFormatter
 
 class HomeAdapter(private val posts: List<Post>, var selectedPosition: Int? = null)
-    : RecyclerView.Adapter<HomeAdapter.PostHolder>(){
+    : RecyclerView.Adapter<HomeAdapter.PostHolder>() {
 
     private val TAG = "HomeAdapter"
     private lateinit var listener: OnItemClickListener
@@ -28,7 +28,7 @@ class HomeAdapter(private val posts: List<Post>, var selectedPosition: Int? = nu
     }
 
     override fun getItemCount(): Int {
-        return  posts.size
+        return posts.size
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -36,8 +36,7 @@ class HomeAdapter(private val posts: List<Post>, var selectedPosition: Int? = nu
         val post = posts[position]
         Log.d(TAG, "onBindViewHolder: Pos = $position")
         holder.setData(post, position)
-
-//        holder.selectedItem(position)
+        holder.selectedItem(position)
 
 
 //        notifyItemChanged(holder.adapterPosition)
@@ -45,7 +44,7 @@ class HomeAdapter(private val posts: List<Post>, var selectedPosition: Int? = nu
     }
 
 
-    inner class PostHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class PostHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var nameField: TextView? = null
         var dateField: TextView? = null
@@ -60,39 +59,32 @@ class HomeAdapter(private val posts: List<Post>, var selectedPosition: Int? = nu
 
             itemView.setOnClickListener {
                 val pos = adapterPosition
-                if(pos != RecyclerView.NO_POSITION){
+                if (pos != RecyclerView.NO_POSITION) {
                     listener.onItemClick(pos)
                 }
             }
+
         }
 
-        fun selectedItem(position: Int){
-//            Log.d(TAG, "selectedItem: Launched")
-//            listener.onHighlighted(header!!, nameField!!.text.toString(), adapterPosition)
-//            Log.d(TAG, "selectedItem: Listener activatd")
-            val pos = adapterPosition
-            if(position != RecyclerView.NO_POSITION){
-                listener.onHighlighted(header!!, nameField!!.text.toString(), position)
-                Log.d(TAG, "selectedItem: Listener activatd : pos = $position")
-            }
+        fun selectedItem(position: Int) {
+            Log.d(TAG, "selectedItem: Launched")
+            listener.onHighlighted(header!!, nameField!!.text.toString(), position)
+            Log.d(TAG, "selectedItem: Listener activatd : pos = $position")
         }
 
 
-        @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(Build.VERSION_CODES.O)
         fun setData(post: Post, pos: Int) {
-            post?.let{
+            post?.let {
                 nameField!!.text = post.patientName
                 dateField!!.text = post.date!!.toString()
                 bodyField!!.text = "City : " + post.city + "\n" +
                         "Donation Center : " + getDonationCenterPlaceName(post.donationCenter) + "\n" +
                         "Blood Type : " + post.bloodType
-            }
+                    }
         }
 
         private fun getDonationCenterPlaceName(donationCenter: Place?): String? = if(donationCenter != null) donationCenter!!.placeName ; else ""
-
-
-
     }
 
     interface OnItemClickListener{

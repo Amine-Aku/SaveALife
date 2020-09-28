@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NavUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -26,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
     var adapter: HomeAdapter? = null
     var list: List<Post>? = null
     var isSelected = false
+    var count = 0
 
     private val call: Call<List<Post>> = ApiClient.getPostServices().getPosts()
 
@@ -50,11 +52,7 @@ class HomeActivity : AppCompatActivity() {
 
 //        init
         recyclerView = findViewById(R.id.home_recycler_view)
-
         retrofitCall()
-
-
-
 
     }
 
@@ -121,18 +119,15 @@ class HomeActivity : AppCompatActivity() {
                 }
 
                 override fun onHighlighted(header: LinearLayout, name: String, pos: Int) {
-                    if(list.isNotEmpty()){
                         patientName?.let {
                             Log.d(TAG, "onHighlighted: patientName = $patientName / this position : $pos")
-                            if(pos != RecyclerView.NO_POSITION && list[pos].patientName == patientName && !isSelected){
+                            if(pos != RecyclerView.NO_POSITION && list[pos].patientName == patientName && isSelected){
                                 header.background = resources.getDrawable(R.drawable.bg_article_header_selected, theme)
-                                isSelected = true
+                                isSelected = false
                                 Log.d(TAG, "onHighlighted: $patientName $pos is highlighted")
                             }
-
+                            else isSelected = true
                         }
-                    }
-                    else Log.d(TAG, "onHighlighted: Empty List")
                 }
 
 
@@ -173,5 +168,9 @@ class HomeActivity : AppCompatActivity() {
             return@setOnNavigationItemSelectedListener false
 
         }
+    }
+
+    override fun onBackPressed() {
+        NavUtils.navigateUpFromSameTask(this)
     }
 }

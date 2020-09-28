@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import com.impression.savealife.R
+import com.impression.savealife.models.Constants
 import com.impression.savealife.models.Place
 import com.impression.savealife.models.Post
 
@@ -18,7 +19,7 @@ class PatientActivity : AppCompatActivity() {
     private lateinit var post: Post
 
     private lateinit var gpsBtn: ImageView
-    private lateinit var donationCenter: Place
+    private var donationCenter: Place? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +38,10 @@ class PatientActivity : AppCompatActivity() {
     private fun init(){
         findViewById<TextView>(R.id.patient_city).text = post.city
         findViewById<TextView>(R.id.patient_date).text = post.date
-        donationCenter = post.donationCenter!!
-        findViewById<TextView>(R.id.patient_input_donation_center).text = donationCenter.placeName
+        post.donationCenter?.let {
+            donationCenter = it
+            findViewById<TextView>(R.id.patient_input_donation_center).text = it.placeName
+        }
         findViewById<TextView>(R.id.patient_input_bloodType).text = post.bloodType
         findViewById<TextView>(R.id.patient_input_details).text = post.details
         gpsBtn = findViewById(R.id.center_donation_gps_btn)
@@ -50,11 +53,18 @@ class PatientActivity : AppCompatActivity() {
 
 
     private fun openMap(){
-        Toast.makeText(this, "Open Map Activity", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, MapActivity::class.java)
-        intent.putExtra("center", post.donationCenter)
-        intent.putExtra("patientName", post.patientName)
-        startActivity(intent)
+        if(donationCenter == null) {
+            Constants.fastToast(this, "No donation Center informed")
+            Log.d(TAG, "openMap: No donation Center informed")
+        }
+        else {
+            Constants.fastToast(this, "Opening Map")
+            Log.d(TAG, "openMap: Open Map Activity")
+            val intent = Intent(this, MapActivity::class.java)
+            intent.putExtra("center", post.donationCenter)
+            intent.putExtra("patientName", post.patientName)
+            startActivity(intent)
+        }
     }
 
     override fun onBackPressed() {
