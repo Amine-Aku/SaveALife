@@ -52,6 +52,8 @@ class NotificationsAdapter(private val posts: List<Notification>)
             }
         }
 
+
+
         @RequiresApi(Build.VERSION_CODES.O)
         fun setData(notification: Notification, pos: Int) {
             notification?.let{

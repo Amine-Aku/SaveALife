@@ -24,6 +24,10 @@ object Constants {
 
     fun fastToast(context: Context, msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
+    val USER_ID = 1
+
+    var isSelected = false
+
 
 
 

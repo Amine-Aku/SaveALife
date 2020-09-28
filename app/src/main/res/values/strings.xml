@@ -42,5 +42,6 @@
 <!--    Notification-->
     <string name="notification_title">SOS ! Someone needs you !</string>
     <string name="notification_body">needs your blood, please save his life</string>
+    <string name="notification_delimiter">needs</string>
 
 </resources>

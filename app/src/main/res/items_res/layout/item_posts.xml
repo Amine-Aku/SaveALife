@@ -12,6 +12,7 @@
 
 
         <LinearLayout
+            android:id="@+id/layout_header"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:background="@drawable/bg_article_header"

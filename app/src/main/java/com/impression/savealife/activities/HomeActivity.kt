@@ -3,6 +3,7 @@ package com.impression.savealife.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.impression.savealife.*
 import com.impression.savealife.adapters.HomeAdapter
 import com.impression.savealife.api.ApiClient
+import com.impression.savealife.models.Constants
 import com.impression.savealife.models.Post
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,9 +25,13 @@ class HomeActivity : AppCompatActivity() {
     var recyclerView: RecyclerView? = null
     var adapter: HomeAdapter? = null
     var list: List<Post>? = null
+    var isSelected = false
+
+    private val call: Call<List<Post>> = ApiClient.getPostServices().getPosts()
 
     override fun onStart() {
         super.onStart()
+        Log.d(TAG, "onHighlighted: onStart: EMPTY LIST")
         setRecyclerView(emptyList())
     }
 
@@ -38,8 +44,7 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigationInitialize(R.id.nav_home)
 
 //   Add+ Button(FloatingActionButton)
-        val addAlert: FloatingActionButton = findViewById(R.id.home_add_alert)
-        addAlert.setOnClickListener {
+            findViewById<FloatingActionButton>(R.id.home_add_alert).setOnClickListener {
             startActivity(Intent(this, NewPostActivity::class.java))
         }
 
@@ -48,11 +53,13 @@ class HomeActivity : AppCompatActivity() {
 
         retrofitCall()
 
+
+
+
     }
 
 
     private fun retrofitCall(){
-        val call = ApiClient.getPostServices().getPosts()
         call.enqueue(object: Callback<List<Post>> {
             override fun onFailure(call: Call<List<Post>>, t: Throwable) {
                 Log.e(TAG, "retrofitCall : onFailure: ${t.message}")
@@ -66,6 +73,7 @@ class HomeActivity : AppCompatActivity() {
                     return
                 }
                 Log.d(TAG, "retrofitCall : onResponse: Call Successful")
+                Log.d(TAG, "onHighlighted: onResponse: TRUE LIST")
                 setRecyclerView(response.body()!!)
 
 //                Toast.makeText(this@HomeActivity, response.body()!!.toString(), Toast.LENGTH_LONG).show()
@@ -76,20 +84,64 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setRecyclerView(list: List<Post>){
         val layoutManager = LinearLayoutManager(this@HomeActivity)
-        recyclerView!!.layoutManager = layoutManager
         adapter = HomeAdapter(list)
-        adapter!!.setOnItemClickListener(object : HomeAdapter.OnItemClickListener{
-            override fun onItemClick(pos: Int) {
-                Log.d(TAG, "onItemClick: Item Clicked : ${list[pos]}")
-                val intent = Intent(this@HomeActivity, PatientActivity::class.java)
-                intent.putExtra("patient", list[pos])
-                startActivity(intent)
+        var pos: Int = 0
+        if(intent != null && intent.hasExtra("patientName")){
+             val patientName = intent.extras!!.getString("patientName")!!.trim()
+
+            list.forEachIndexed lit@{ index, post ->
+                if(post.patientName == patientName){
+                    pos = index
+                    layoutManager.scrollToPosition(pos)
+                    Log.d(TAG, "setRecyclerView: Position: $pos")
+                    setupAdapter(list, layoutManager, patientName, pos)
+                    Log.d(TAG, "setRecyclerView: setupAdapter WAY : 1")
+                    return@lit
+                }
             }
-        })
-        recyclerView!!.adapter = adapter
-        recyclerView!!.post{
-            Log.d(TAG, "setRecyclerView: Data Change !")
-            adapter!!.notifyDataSetChanged()
+        }
+        else{
+            setupAdapter(list, layoutManager, null, null)
+            Log.d(TAG, "setRecyclerView: setupAdapter WAY : 3")
+        }
+
+
+
+    }
+
+    private fun setupAdapter(list: List<Post>, layoutManager: LinearLayoutManager, patientName: String?, position: Int?) {
+        recyclerView!!.layoutManager = layoutManager
+        adapter?.let {
+            adapter!!.setOnItemClickListener(object : HomeAdapter.OnItemClickListener{
+                override fun onItemClick(pos: Int) {
+                    Log.d(TAG, "onItemClick: Item Clicked : ${list[pos]}")
+                    val intent = Intent(this@HomeActivity, PatientActivity::class.java)
+                    intent.putExtra("patient", list[pos])
+                    startActivity(intent)
+                }
+
+                override fun onHighlighted(header: LinearLayout, name: String, pos: Int) {
+                    if(list.isNotEmpty()){
+                        patientName?.let {
+                            Log.d(TAG, "onHighlighted: patientName = $patientName / this position : $pos")
+                            if(pos != RecyclerView.NO_POSITION && list[pos].patientName == patientName && !isSelected){
+                                header.background = resources.getDrawable(R.drawable.bg_article_header_selected, theme)
+                                isSelected = true
+                                Log.d(TAG, "onHighlighted: $patientName $pos is highlighted")
+                            }
+
+                        }
+                    }
+                    else Log.d(TAG, "onHighlighted: Empty List")
+                }
+
+
+            })
+            recyclerView!!.adapter = adapter
+            recyclerView!!.post{
+                Log.d(TAG, "setRecyclerView: Data Change !")
+                adapter!!.notifyDataSetChanged()
+            }
         }
     }
 

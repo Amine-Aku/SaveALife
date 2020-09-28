@@ -102,14 +102,18 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     private fun createNotificationFromPost(post: Post){
         val title = getString(R.string.notification_title)
         val body = post!!.patientName + " " +getString(R.string.notification_body)
-        val notification = Notification(title, body, post.city!!)
+        val data = mapOf<String, String>(
+            "user_id" to Constants.USER_ID.toString(),
+            "patientName" to post!!.patientName!!
+        )
+        val notification = Notification(title, body, post.city!!, data)
         val registerNotifCall = ApiClient.getNotificationServices().addNotification(notification)
 
         // register notif in the BD then send it to users
         registerNotifCall.enqueue(object : Callback<Notification>{
             override fun onFailure(call: Call<Notification>, t: Throwable) {
                 Log.e(TAG, "createNotificationFromPost-register: onFailure: ${t.message}")
-                Toast.makeText(this@NewPostActivity, t.message, Toast.LENGTH_SHORT).show()
+                fastToast(t.message!!)
             }
 
             override fun onResponse(call: Call<Notification>, response: Response<Notification>) {
@@ -243,5 +247,5 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         NavUtils.navigateUpFromSameTask(this)
     }
 
-    private fun fastToast(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    private fun fastToast(msg: String) = Constants.fastToast(this@NewPostActivity, msg)
 }

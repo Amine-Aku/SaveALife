@@ -12,25 +12,34 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.impression.savealife.R
-import com.impression.savealife.activities.MainActivity
+import com.impression.savealife.activities.HomeActivity
 
 open class FirebaseMsgService() : FirebaseMessagingService() {
 
     private val TAG = "FirebaseMsgService"
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        if(remoteMessage!!.data.isNotEmpty())
-            Log.d(TAG, "onMessageReceived: msg data payload :  ${remoteMessage.data}")
+
         remoteMessage!!.notification?.let {
             val title = it.title
             val body = it.body
             Log.d(TAG, "onMessageReceived: Title : $title\nBody : $body")
-            sendNotification(title!!, body!!)
+            val data = remoteMessage.data
+            if(data.isNotEmpty()){
+                Log.d(TAG, "onMessageReceived: msg data payload :  ${remoteMessage.data}")
+                val currentUserId = 1
+                if(data.containsKey("user_id") && data["user_id"] == currentUserId.toString())
+                    Log.d(TAG, "onMessageReceived: msg not destined to this user: $currentUserId")
+                else
+                    sendNotification(title!!, body!!)
+            }
+            else
+                sendNotification(title!!, body!!)
         }
     }
 
     private fun sendNotification(title: String, messageBody: String) {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
             PendingIntent.FLAG_ONE_SHOT)

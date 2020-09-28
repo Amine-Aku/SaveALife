@@ -25,6 +25,8 @@ class NotificationsActivity : AppCompatActivity() {
     var adapter: NotificationsAdapter? = null
     var list: List<Notification>? = null
 
+    private val call: Call<List<Notification>> = ApiClient.getNotificationServices().getNotifications()
+
     override fun onStart() {
         super.onStart()
         setRecyclerView(emptyList())
@@ -46,7 +48,6 @@ class NotificationsActivity : AppCompatActivity() {
     }
 
     private fun retrofitCall(){
-        val call = ApiClient.getNotificationServices().getNotifications()
         call.enqueue(object: Callback<List<Notification>> {
             override fun onFailure(call: Call<List<Notification>>, t: Throwable) {
                 Log.e(TAG, "retrofitCall : onFailure: ${t.message}")
@@ -73,7 +74,12 @@ class NotificationsActivity : AppCompatActivity() {
         adapter!!.setOnItemClickListener(object : NotificationsAdapter.OnItemClickListener{
             override fun onItemClick(pos: Int) {
                 Log.d(TAG, "onItemClick: Item Clicked : ${list[pos]}")
-                Constants.fastToast(this@NotificationsActivity, "You clicked ${list[pos].title}")
+                val notif = list[pos]
+                Constants.fastToast(this@NotificationsActivity, "You clicked ${notif.title}")
+                val patientName = notif.body.substringBefore(getString(R.string.notification_delimiter))
+                val intent = Intent(this@NotificationsActivity, HomeActivity::class.java)
+                intent.putExtra("patientName", patientName)
+                startActivity(intent)
             }
         })
         recyclerView!!.adapter = adapter

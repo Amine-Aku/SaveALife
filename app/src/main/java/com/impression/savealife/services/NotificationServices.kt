@@ -19,4 +19,7 @@ interface NotificationServices {
 
     @POST("notification/token")
     fun sendPushNotificationToToken(@Body notification: Notification): Call<Notification>
+
+    @POST("notification/data")
+    fun sendPushNotificationWithData(@Body notification: Notification): Call<Notification>
 }
