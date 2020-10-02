@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -90,29 +91,32 @@ class HomeActivity : AppCompatActivity() {
             list.forEachIndexed lit@{ index, post ->
                 if(post.patientName == patientName){
                     pos = index
-                    layoutManager.scrollToPosition(pos)
+                    recyclerView!!.layoutManager = layoutManager
+                    scrollTo(layoutManager, pos)
                     Log.d(TAG, "setRecyclerView: Position: $pos")
-                    setupAdapter(list, layoutManager, patientName, pos)
+                    setupAdapter(list,  patientName, pos)
                     Log.d(TAG, "setRecyclerView: setupAdapter Notification clicked & Post found, WAY 1")
                     nameFound = true
                     return@lit
                 }
             }
             if(!nameFound){
-                setupAdapter(list, layoutManager, null, null)
+                recyclerView!!.layoutManager = layoutManager
+                setupAdapter(list, null, null)
                 Log.i(TAG, "setRecyclerView: setupAdapter: Notification clicked & Post not found, Way 2")
                 //  PROBLEM : Always Called in 1 of the Recycler View 2 calls
 //                Cst.fastToast(this, "Post not found or deleted")
             }
         }
         else{
-            setupAdapter(list, layoutManager, null, null)
+            recyclerView!!.layoutManager = layoutManager
+            setupAdapter(list, null, null)
             Log.d(TAG, "setRecyclerView: setupAdapter default, WAY 3")
         }
     }
 
-    private fun setupAdapter(list: List<Post>, layoutManager: LinearLayoutManager, patientName: String?, position: Int?) {
-        recyclerView!!.layoutManager = layoutManager
+
+    private fun setupAdapter(list: List<Post>, patientName: String?, position: Int?) {
         adapter?.let {
             adapter!!.setOnItemClickListener(object : HomeAdapter.OnItemClickListener{
                 override fun onItemClick(pos: Int) {
@@ -144,6 +148,17 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+//    Scroll Recycler view to the corresponding Post to the notif clicked (NEED SMOOTH)
+    private fun scrollTo(layoutManager: LinearLayoutManager, position: Int){
+        layoutManager.scrollToPosition(position)
+        // TEST SMOOTH SCROLL
+//                    val smoothScroller = object: LinearSmoothScroller(this@HomeActivity){
+//                        override fun getVerticalSnapPreference(): Int = SNAP_TO_START;
+//                    }
+//                    smoothScroller.targetPosition = position
+//                    layoutManager.startSmoothScroll(smoothScroller)
+    }
+
     private fun bottomNavigationInitialize(selectedItemId: Int){
         //Initialization
         val bottomnavigation: BottomNavigationView = findViewById(R.id.bottom_navigation)
@@ -153,24 +168,28 @@ class HomeActivity : AppCompatActivity() {
 
         //Item Selected Listener
         bottomnavigation.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
+            if(Cst.authenticated || it.itemId == R.id.nav_home){
+                when (it.itemId) {
 
-                R.id.nav_home -> return@setOnNavigationItemSelectedListener true
+                    R.id.nav_home -> return@setOnNavigationItemSelectedListener true
 
-                R.id.nav_notifications -> {
-                    startActivity(Intent(this, NotificationsActivity::class.java))
-                    overridePendingTransition(0,0)
-                    return@setOnNavigationItemSelectedListener true
-                }
+                    R.id.nav_notifications -> {
+                        startActivity(Intent(this, NotificationsActivity::class.java))
+                        overridePendingTransition(0,0)
+                        return@setOnNavigationItemSelectedListener true
+                    }
 
-                R.id.nav_profile -> {
-                    startActivity(Intent(this, ProfileActivity::class.java))
-                    overridePendingTransition(0,0)
-                    return@setOnNavigationItemSelectedListener true
+                    R.id.nav_profile -> {
+                        startActivity(Intent(this, ProfileActivity::class.java))
+                        overridePendingTransition(0,0)
+                        return@setOnNavigationItemSelectedListener true
+                    }
                 }
             }
+            else {
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
             return@setOnNavigationItemSelectedListener false
-
         }
     }
 

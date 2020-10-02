@@ -2,7 +2,7 @@ package com.impression.savealife.models
 
 import java.util.*
 
-class Notification {
+class Notification() {
     var id: Long? = null
     var date: String? = null
     var title: String = ""
@@ -13,7 +13,7 @@ class Notification {
 
     //    Construtors
 
-    constructor(title: String, body: String, topic: String, userId: String? = null) {
+    constructor(title: String, body: String, topic: String, userId: String? = null): this() {
         this.title = title
         this.body = body
         this.topic = topic

@@ -35,7 +35,7 @@
 
         <!--Full name-->
         <TextView
-            android:id="@+id/profile_full_name"
+            android:id="@+id/profile_username"
             style="@style/button_medium"
             android:layout_marginTop="10dp"
             android:text="Amine Fattas"
@@ -46,15 +46,15 @@
 
 <!--     username-->
         <TextView
-            android:id="@+id/profile_username"
+            android:id="@+id/profile_city"
             style="@style/input_field"
             android:layout_marginTop="30dp"
-            android:text="@string/username"
+            android:text="@string/city"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
-        <!--Password-->
+        <!--bloodType-->
         <TextView
             android:id="@+id/profile_bloodType"
             style="@style/input_field"
@@ -63,9 +63,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_username" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_city" />
 
-<!--    blood type-->
+<!--        &lt;!&ndash;  username_EDIT&ndash;&gt;-->
+<!--        <EditText-->
+<!--            android:id="@+id/profile_city_edit"-->
+<!--            style="@style/input_field"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:text="@string/city"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/view" />-->
+
+<!--        &lt;!&ndash;  bloodType_EDIT&ndash;&gt;-->
+<!--        <EditText-->
+<!--            android:id="@+id/profile_bloodType_edit"-->
+<!--            style="@style/input_field"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            android:text="@string/blood_type"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.495"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/profile_city" />-->
+
+<!--    lastDonation_-->
         <TextView
             android:id="@+id/profile_lastDonation"
             style="@style/input_field"

@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
-interface AppuserServices {
+interface AppuserService {
     @GET("user/{id}")
     fun getUser(@Path("id") id: Long): Call<List<Appuser>>
 }

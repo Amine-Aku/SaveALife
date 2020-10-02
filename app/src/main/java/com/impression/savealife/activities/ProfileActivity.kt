@@ -4,12 +4,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.core.app.NavUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.impression.savealife.R
+import com.impression.savealife.models.Cst
 
 class ProfileActivity : AppCompatActivity() {
 
+    private lateinit var usernameField: TextView
+    private lateinit var cityField: TextView
+    private lateinit var bloodTypeField: TextView
+    private lateinit var lastDonationField: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,18 +26,31 @@ class ProfileActivity : AppCompatActivity() {
         bottomNavigationInitialize(R.id.nav_profile)
 
 //        Initialization
-        val editButton: Button = findViewById(R.id.profile_edit_btn)
-        val historyButton:Button = findViewById(R.id.profile_history_btn)
+        init()
 
 //        Events
-        editButton.setOnClickListener {  }
+        findViewById<Button>(R.id.profile_edit_btn).setOnClickListener {}
 
-        historyButton.setOnClickListener {
+        findViewById<Button>(R.id.profile_history_btn).setOnClickListener {
             val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
 
 
+    }
+
+    private fun init(){
+        usernameField = findViewById(R.id.profile_username)
+        cityField = findViewById(R.id.profile_city)
+        bloodTypeField = findViewById(R.id.profile_bloodType)
+        lastDonationField = findViewById(R.id.profile_lastDonation)
+
+        Cst.currentUser?.let {
+            usernameField.append(" "+it.username)
+            cityField.append(" "+it.city)
+            bloodTypeField.append(" "+it.bloodType)
+            lastDonationField.append(" "+it.lastDonation)
+        }
     }
 
 

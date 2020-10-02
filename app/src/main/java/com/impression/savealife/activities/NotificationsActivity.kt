@@ -25,7 +25,7 @@ class NotificationsActivity : AppCompatActivity() {
     var adapter: NotificationsAdapter? = null
     var list: List<Notification>? = null
 
-    private val call: Call<List<Notification>> = ApiClient.getNotificationServices().getNotifications()
+    private val call: Call<List<Notification>> = ApiClient.getNotificationServices().getNotifications(Cst.currentUser!!.id!!, Cst.token)
 
     override fun onStart() {
         super.onStart()

@@ -1,26 +1,35 @@
 package com.impression.savealife.api
 
-import com.impression.savealife.services.AppuserServices
-import com.impression.savealife.services.NotificationServices
-import com.impression.savealife.services.PostServices
+import com.impression.savealife.services.AppuserService
+import com.impression.savealife.services.AuthenticationService
+import com.impression.savealife.services.NotificationService
+import com.impression.savealife.services.PostService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 object ApiClient {
 
-    private fun getRetrofit(): Retrofit{
-        return Retrofit.Builder()
-            .baseUrl("https://save-a-life-web-server.herokuapp.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    private const val baseUrl = "https://save-a-life-web-server.herokuapp.com/"
+    private var retrofit: Retrofit? = null
+
+    fun getRetrofitInstance(): Retrofit{
+        if(retrofit == null)
+            retrofit = Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+        return retrofit!!
     }
 
-    fun getAppuserServices(): AppuserServices = getRetrofit().create(AppuserServices::class.java)
+    fun getAuthenticationService(): AuthenticationService = getRetrofitInstance().create(AuthenticationService::class.java)
 
-    fun getPostServices(): PostServices = getRetrofit().create(PostServices::class.java)
+    fun getAppuserServices(): AppuserService = getRetrofitInstance().create(AppuserService::class.java)
 
-    fun getNotificationServices(): NotificationServices = getRetrofit().create(NotificationServices::class.java)
+    fun getPostServices(): PostService = getRetrofitInstance().create(PostService::class.java)
+
+    fun getNotificationServices(): NotificationService = getRetrofitInstance().create(NotificationService::class.java)
+
+
 
 
 

@@ -1,18 +1,17 @@
 package com.impression.savealife.services
 
+import com.impression.savealife.models.Cst
 import com.impression.savealife.models.Notification
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
 
-interface NotificationServices {
+interface NotificationService {
 
-    @GET("notification/get")
-    fun getNotifications(): Call<List<Notification>>
+    @GET("user/notification/get/{id}")
+    fun getNotifications(@Path("id") userId: Long, @Header("Authorization") token: String?): Call<List<Notification>>
 
-    @POST("notification/add")
-    fun addNotification(@Body notification: Notification): Call<Notification>
+    @POST("user/notification/add")
+    fun addNotification(@Body notification: Notification, @Header("Authorization") token: String?): Call<Notification>
 
     @POST("notification/topic")
     fun sendPushNotificationToTopic(@Body notification: Notification): Call<Notification>

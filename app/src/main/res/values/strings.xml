@@ -19,7 +19,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="confirm">Confirm Password</string>
-    <string name="blood_type">Blood Type</string>
+    <string name="blood_type">Blood Type :</string>
 
     <!--    Profile-->
     <string name="last_donation">Last Donation :</string>

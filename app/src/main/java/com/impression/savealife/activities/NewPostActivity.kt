@@ -72,7 +72,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 return@setOnClickListener
             }
             Log.d(TAG, "postBtn.setOnClickListener : newPost is not null")
-            val call = ApiClient.getPostServices().addPost(newPost)
+            val call = ApiClient.getPostServices().addPost(newPost, Cst.token)
 
             call.enqueue(object: Callback<Post>{
                 override fun onFailure(call: Call<Post>, t: Throwable) {
@@ -104,7 +104,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         val body = post!!.patientName + " " +getString(R.string.notification_body)
         val userId = Cst.USER_ID.toString()
         val notification = Notification(title, body, post.city!!, userId)
-        val registerNotifCall = ApiClient.getNotificationServices().addNotification(notification)
+        val registerNotifCall = ApiClient.getNotificationServices().addNotification(notification, Cst.token)
 
         // register notif in the BD then send it to users
         registerNotifCall.enqueue(object : Callback<Notification>{
