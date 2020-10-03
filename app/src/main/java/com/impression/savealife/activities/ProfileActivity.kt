@@ -3,6 +3,7 @@ package com.impression.savealife.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.app.NavUtils
@@ -12,6 +13,7 @@ import com.impression.savealife.models.Cst
 
 class ProfileActivity : AppCompatActivity() {
 
+    private val TAG = "ProfileActivity"
     private lateinit var usernameField: TextView
     private lateinit var cityField: TextView
     private lateinit var bloodTypeField: TextView
@@ -24,6 +26,8 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         title = resources.getString(R.string.profile)
         bottomNavigationInitialize(R.id.nav_profile)
+
+        Log.d(TAG, "onCreate: Current User : ${Cst.currentUser}")
 
 //        Initialization
         init()
@@ -46,10 +50,10 @@ class ProfileActivity : AppCompatActivity() {
         lastDonationField = findViewById(R.id.profile_lastDonation)
 
         Cst.currentUser?.let {
-            usernameField.append(" "+it.username)
-            cityField.append(" "+it.city)
-            bloodTypeField.append(" "+it.bloodType)
-            lastDonationField.append(" "+it.lastDonation)
+            usernameField.text = it.username
+            cityField.text = resources.getString(R.string.city) + " " + it.city
+            bloodTypeField.text = resources.getString(R.string.blood_type) + " " + it.bloodType
+            lastDonationField.text = resources.getString(R.string.last_donation) + " " + it.lastDonation
         }
     }
 

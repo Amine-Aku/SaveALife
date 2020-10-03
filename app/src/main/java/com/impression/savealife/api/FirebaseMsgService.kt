@@ -52,7 +52,10 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
             Log.d(TAG, "onMessageReceived: msg data payload :  ${remoteMessage.data}")
             val title = it["title"]
             val body = it["body"]
-            if(it.containsKey("user_id") && it["user_id"] == Cst.USER_ID.toString())
+            if( Cst.currentUser != null
+                && it.containsKey("user_id")
+                && it["user_id"] != null
+                && it["user_id"] == Cst.currentUser!!.id.toString())
                 Log.d(TAG, "onMessageReceived: msg not destined to this user: ${Cst.USER_ID}")
             else
             {

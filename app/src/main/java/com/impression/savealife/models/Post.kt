@@ -4,16 +4,12 @@ import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.annotation.RequiresApi
-import com.fasterxml.jackson.annotation.JsonFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 @RequiresApi(Build.VERSION_CODES.O)
 class Post() : Parcelable {
 
     private var poster: Appuser? = null
     var patientName: String? = ""
-//    @JsonFormat(pattern = "dd/MM/yyyy [HH:mm:ss]")
     var date: String? = null
     var city: String? = ""
     var donationCenter: Place? = null

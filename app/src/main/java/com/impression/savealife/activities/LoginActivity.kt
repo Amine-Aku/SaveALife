@@ -48,6 +48,9 @@ class LoginActivity : AppCompatActivity() {
             }
             else login(username, password)
         }
+        findViewById<Button>(R.id.login_register_btn).setOnClickListener{
+            startActivity(Intent(this, RegisterActivity::class.java))
+        }
     }
 
     private fun login(username: String, password: String) {

@@ -102,8 +102,9 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     private fun createNotificationFromPost(post: Post){
         val title = getString(R.string.notification_title)
         val body = post!!.patientName + " " +getString(R.string.notification_body)
-        val userId = Cst.USER_ID.toString()
+        val userId = Cst.currentUser!!.id.toString()
         val notification = Notification(title, body, post.city!!, userId)
+        Log.d(TAG, "createNotificationFromPost: Notification Created $notification")
         val registerNotifCall = ApiClient.getNotificationServices().addNotification(notification, Cst.token)
 
         // register notif in the BD then send it to users
@@ -201,7 +202,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         val city = selectedCity()
         val details: String = detailsField.text.toString().trim()
         return if(fieldsAreValid(patientName, city))
-            Post(null, patientName, city,donationCenter,bloodType, details)
+            Post(Cst.currentUser, patientName, city,donationCenter,bloodType, details)
         else null
     }
 
@@ -230,13 +231,12 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        Log.d(TAG, "onNothingSelected: No Blood Type is selected in the spinner")
+        Log.d(TAG, "onNothingSelected: Nothing is selected in the spinner")
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val itemSelected = parent!!.getItemAtPosition(position).toString()
-        Log.d(TAG, "onItemSelected: Blood Type ($itemSelected) is selected in the spinner")
-//        Toast.makeText(this, itemSelected, Toast.LENGTH_SHORT).show()
+        Log.d(TAG, "onItemSelected: Item ($itemSelected) is selected in the spinner")
     }
 
 

@@ -47,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigationInitialize(R.id.nav_home)
 
 //   Add+ Button(FloatingActionButton)
-            findViewById<FloatingActionButton>(R.id.home_add_alert).setOnClickListener {
+         findViewById<FloatingActionButton>(R.id.home_add_alert).setOnClickListener {
             startActivity(Intent(this, NewPostActivity::class.java))
         }
 

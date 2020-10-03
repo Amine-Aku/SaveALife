@@ -1,11 +1,14 @@
 package com.impression.savealife.api
 
+import com.google.gson.GsonBuilder
 import com.impression.savealife.services.AppuserService
 import com.impression.savealife.services.AuthenticationService
 import com.impression.savealife.services.NotificationService
 import com.impression.savealife.services.PostService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
+
 
 object ApiClient {
 
@@ -13,11 +16,15 @@ object ApiClient {
     private var retrofit: Retrofit? = null
 
     fun getRetrofitInstance(): Retrofit{
-        if(retrofit == null)
+        if(retrofit == null){
+            val gson = GsonBuilder().setLenient().create()
+
             retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
+        }
         return retrofit!!
     }
 

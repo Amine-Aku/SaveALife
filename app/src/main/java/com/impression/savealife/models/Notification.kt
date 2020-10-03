@@ -21,7 +21,7 @@ class Notification() {
     }
 
     override fun toString(): String {
-        return "Notification(id=$id, date=$date, title='$title', body='$body', topic=$topic, token=$token, data=$userId)"
+        return "Notification(id=$id, date=$date, title='$title', body='$body', topic=$topic, token=$token, userId=$userId)"
     }
 
 

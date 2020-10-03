@@ -7,8 +7,8 @@ import retrofit2.http.*
 
 interface NotificationService {
 
-    @GET("user/notification/get/{id}")
-    fun getNotifications(@Path("id") userId: Long, @Header("Authorization") token: String?): Call<List<Notification>>
+    @GET("user/notification/get")
+    fun getNotifications(@Header("Authorization") token: String?): Call<List<Notification>>
 
     @POST("user/notification/add")
     fun addNotification(@Body notification: Notification, @Header("Authorization") token: String?): Call<Notification>

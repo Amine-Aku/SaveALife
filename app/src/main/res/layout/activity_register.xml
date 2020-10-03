@@ -1,84 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".activities.WelcomeActivity">
+    android:fillViewport="true"
+    tools:context=".activities.RegisterActivity">
 
-    <!--White BG-->
-    <View
-        android:id="@+id/view"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:background="@drawable/bg_logo_radius"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentTop="true"
-        android:contentDescription="@string/logo"
-        android:scaleType="centerCrop"
-        android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-<!--Username-->
-    <EditText
-        android:id="@+id/register_username"
-        style="@style/input_field"
-        android:layout_marginTop="30dp"
-        android:hint="@string/username"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
-<!--Password-->
-    <EditText
-        android:id="@+id/register_password"
-        style="@style/input_field"
-        android:layout_marginTop="15dp"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_username" />
-<!--Confirm Password-->
-    <EditText
-        android:id="@+id/register_confirm"
-        style="@style/input_field"
-        android:layout_marginTop="15dp"
-        android:hint="@string/confirm"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_password" />
-<!--Blood Type-->
-    <EditText
-        android:id="@+id/register_bloodType"
-        style="@style/input_field"
-        android:layout_marginTop="15dp"
-        android:hint="@string/blood_type"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_confirm" />
-
-    <Button
-        android:id="@+id/register_register_btn"
-        style="@style/button_big"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_bloodType" />
+        android:background="@color/colorPrimary"
+        tools:context=".activities.RegisterActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!--White BG-->
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/bg_logo_radius"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/register_img"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/logo"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo" />
+
+        <!--Username-->
+        <EditText
+            android:id="@+id/register_username"
+            style="@style/input_field"
+            android:layout_height="45dp"
+            android:layout_below="@id/register_img"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:hint="@string/username" />
+        <!--Password-->
+        <EditText
+            android:id="@+id/register_password"
+            style="@style/input_field"
+            android:layout_height="45dp"
+            android:layout_below="@id/register_username"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+        <!--Confirm Password-->
+        <EditText
+            android:id="@+id/register_confirm"
+            style="@style/input_field"
+            android:layout_height="45dp"
+            android:layout_below="@id/register_password"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:hint="@string/confirm"
+            android:inputType="textPassword" />
+
+        <!--city    -->
+        <LinearLayout
+            android:id="@+id/register_layout_city"
+            style="@style/input_field"
+            android:layout_height="45dp"
+            android:layout_below="@id/register_confirm"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_labels"
+                android:layout_width="wrap_content"
+                android:text="@string/city" />
+
+            <Spinner
+                android:id="@+id/register_city_spinner"
+                style="@style/input_field"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+
+                android:gravity="start"
+                android:minWidth="100dp" />
+
+            <ImageView style="@style/spinner_arrow" />
+
+        </LinearLayout>
+
+        <!--blood type-->
+        <LinearLayout
+            android:id="@+id/register_layout_bloodType"
+            style="@style/input_field"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_below="@id/register_layout_city"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_labels"
+                android:layout_width="wrap_content"
+                android:text="@string/blood_type" />
+
+            <Spinner
+                android:id="@+id/register_bloodType_spinner"
+                style="@style/input_field_mini"
+                android:layout_width="100dp"
+                android:layout_height="45dp"
+                android:gravity="start"
+                android:minWidth="100dp" />
+
+            <ImageView style="@style/spinner_arrow" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/register_register_btn"
+            style="@style/button_big"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/register_layout_bloodType"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:text="@string/register" />
+
+    </RelativeLayout>
+</ScrollView>

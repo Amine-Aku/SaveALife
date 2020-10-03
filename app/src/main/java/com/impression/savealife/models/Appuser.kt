@@ -13,7 +13,7 @@ class Appuser() : Parcelable {
     var bloodType: String? = null
     var lastDonation: String? = null
     var city: String? = null
-    var active: Boolean = true
+    var active: Boolean? = null
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readValue(Long::class.java.classLoader) as? Long
@@ -24,21 +24,11 @@ class Appuser() : Parcelable {
         city = parcel.readString()
     }
 
-    //    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-//    private var posts: Collection<Post>? = null
-//    @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL)
-//    private val notifications: Collection<Notification>? =
-//        null
-//    @OneToMany(mappedBy = "donator")
-//    private val donations: Collection<Donation>? = null
-
     //    Constructos
-    constructor(id: Long?, username: String?, password: String?, bloodType: String?, lastDonation: String?, city: String?) : this() {
-        this.id = id
+    constructor(username: String?, password: String?, city: String?, bloodType: String?) : this() {
         this.username = username
         this.password = password
         this.bloodType = bloodType
-        this.lastDonation = lastDonation
         this.city = city
     }
 

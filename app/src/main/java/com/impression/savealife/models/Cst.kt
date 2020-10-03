@@ -1,10 +1,12 @@
 package com.impression.savealife.models
 
+import android.R
 import android.content.Context
 import android.util.Base64
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
@@ -16,6 +18,8 @@ import kotlin.collections.ArrayList
 //object that contains all the constants used in this App
 object Cst {
 
+//    FIELDS
+
     private val TAG = "Cst"
 
     val USER_ID = 1
@@ -23,6 +27,16 @@ object Cst {
     val CHANNEL_1_ID = "New Post Notification"
 
     var isSelected = false
+
+    var token: String? = null
+
+    var currentUser: Appuser? = null
+        private set
+
+    var authenticated: Boolean = false
+        private set
+
+//    LISTS
 
     val BLOOD_TYPE_LIST = arrayListOf(
         "None", "O+","O-", "A+", "A-", "B+", "B-", "AB+", "AB-"
@@ -33,6 +47,8 @@ object Cst {
         City("Casablanca", 33.5731, -7.5898),
         City("Agadir", 30.4278, -9.5981)
     )
+
+//    FUNCTIONS
 
     fun  CITY_NAMES_LIST(): ArrayList<String>{
         var list: ArrayList<String> = ArrayList()
@@ -47,9 +63,6 @@ object Cst {
     fun subscribeToTopic(topic: String): Task<Void> = FirebaseMessaging.getInstance().subscribeToTopic(topic)
     fun unsubscribeFromTopic(topic: String) = FirebaseMessaging.getInstance().subscribeToTopic(topic)
 
-    var currentUser: Appuser? = null
-
-    var authenticated: Boolean = false
 
     fun login(jwt: String){
         token = "Bearer $jwt"
@@ -61,14 +74,16 @@ object Cst {
         Log.d(TAG, "Cst login: currentUser : $currentUser")
         Log.d(TAG, "Cst login: TOKEN : $token")
         authenticated = true
+        subscribeToTopic(currentUser!!.city!!)
     }
 
     fun logout(){
         token = null
         currentUser = null
+        authenticated = false
     }
 
-    var token: String? = null
+
 
 
 

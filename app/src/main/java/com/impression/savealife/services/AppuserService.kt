@@ -11,4 +11,7 @@ import retrofit2.http.Path
 interface AppuserService {
     @GET("user/{id}")
     fun getUser(@Path("id") id: Long): Call<List<Appuser>>
+
+    @POST("register")
+    fun registerUser(@Body newUser: Appuser): Call<String>
 }
