@@ -71,7 +71,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 else{
                     val jwt = response.body()!!.get("jwt").toString().removeSurrounding("\"")
-                    Cst.login(jwt)
+                    Cst.login(jwt, this@LoginActivity)
                     Log.d(TAG, "onResponse: Login Successful: Token = $jwt")
                     Cst.fastToast(this@LoginActivity, "Welcome")
                     usernameField.text.clear()

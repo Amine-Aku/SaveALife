@@ -16,6 +16,7 @@ open class App: Application() {
 
         ApiClient.getRetrofitInstance()
         createNotificationChannels()
+
     }
 
     private fun createNotificationChannels(){

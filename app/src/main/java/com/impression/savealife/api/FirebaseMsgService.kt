@@ -56,7 +56,7 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
                 && it.containsKey("user_id")
                 && it["user_id"] != null
                 && it["user_id"] == Cst.currentUser!!.id.toString())
-                Log.d(TAG, "onMessageReceived: msg not destined to this user: ${Cst.USER_ID}")
+                Log.d(TAG, "onMessageReceived: msg not destined to this user: ${Cst.currentUser!!.id}")
             else
             {
                 sendNotification(title!!, body!!)

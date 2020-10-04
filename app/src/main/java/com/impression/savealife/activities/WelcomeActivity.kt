@@ -12,15 +12,16 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
-        val loginButton: Button = findViewById(R.id.welcome_login_btn)
-        val registerButton: Button = findViewById(R.id.welcome_register_btn)
-
-        loginButton.setOnClickListener {
+        findViewById<Button>(R.id.welcome_login_btn).setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        registerButton.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java))
+        findViewById<Button>(R.id.welcome_home_btn).setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
         }
+    }
+
+    override fun onBackPressed() {
+//        EXIT APP
     }
 }

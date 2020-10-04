@@ -42,6 +42,15 @@ class Appuser() : Parcelable {
 
     }
 
+    constructor(id: Long, username: String?, city: String?, bloodType: String?, lastDonation: String?, active: Boolean ) : this() {
+        this.id = id
+        this.username = username
+        this.city = city
+        this.bloodType = bloodType
+        this.lastDonation = lastDonation
+        this.active = active
+    }
+
 
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

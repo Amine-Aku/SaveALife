@@ -22,17 +22,19 @@
         </activity>
         <activity android:name=".activities.WelcomeActivity" />
         <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.RegisterActivity"
+        <activity
+            android:name=".activities.RegisterActivity"
             android:parentActivityName=".activities.LoginActivity"/>
-        <activity android:name=".activities.HomeActivity"
-            android:parentActivityName=".activities.MainActivity"/>
+        <activity
+            android:name=".activities.HomeActivity" />
         <activity
             android:name=".activities.NewPostActivity"
             android:parentActivityName=".activities.HomeActivity" />
         <activity
             android:name=".activities.PatientActivity"
             android:parentActivityName=".activities.HomeActivity" />
-        <activity android:name=".activities.MapActivity"
+        <activity
+            android:name=".activities.MapActivity"
             android:parentActivityName=".activities.PatientActivity"/>
         <activity
             android:name=".activities.NotificationsActivity"

@@ -4,8 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.impression.savealife.R
@@ -26,6 +29,8 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         title = resources.getString(R.string.profile)
         bottomNavigationInitialize(R.id.nav_profile)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
         Log.d(TAG, "onCreate: Current User : ${Cst.currentUser}")
 
@@ -93,4 +98,21 @@ class ProfileActivity : AppCompatActivity() {
         NavUtils.navigateUpFromSameTask(this)
         overridePendingTransition(0,0)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.logout_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.logout_icon -> {
+                startActivity(Intent(this, WelcomeActivity::class.java))
+                Cst.logout(this)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
 }

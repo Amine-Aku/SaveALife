@@ -22,6 +22,12 @@ class MainActivity : AppCompatActivity() {
 
         Cst.subscribeToTopic("all_users")
 
+        if(Cst.loadData(this)){
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
+        else {
+            startActivity(Intent(this, WelcomeActivity::class.java))
+        }
 
     }
 

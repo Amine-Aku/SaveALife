@@ -38,7 +38,8 @@
             android:id="@+id/profile_username"
             style="@style/button_medium"
             android:layout_marginTop="10dp"
-            android:text="Amine Fattas"
+            android:paddingHorizontal="10dp"
+            android:text="test"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image" />

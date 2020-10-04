@@ -3,6 +3,8 @@ package com.impression.savealife.activities
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
@@ -126,5 +128,20 @@ class NotificationsActivity : AppCompatActivity() {
         // Go back to the Parent Activity
         NavUtils.navigateUpFromSameTask(this)
         overridePendingTransition(0,0)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.logout_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.logout_icon -> {
+                startActivity(Intent(this, WelcomeActivity::class.java))
+                Cst.logout(this)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
