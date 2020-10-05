@@ -12,9 +12,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.impression.savealife.R
+import com.impression.savealife.api.ApiClient
+import com.impression.savealife.dialogs.EditDialog
+import com.impression.savealife.dialogs.LogoutDialog
 import com.impression.savealife.models.Cst
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity(), EditDialog.EditDialogClickListener{
 
     private val TAG = "ProfileActivity"
     private lateinit var usernameField: TextView
@@ -38,13 +44,15 @@ class ProfileActivity : AppCompatActivity() {
         init()
 
 //        Events
-        findViewById<Button>(R.id.profile_edit_btn).setOnClickListener {}
+        findViewById<Button>(R.id.profile_edit_btn).setOnClickListener {
+            Log.d(TAG, "onClick: Edit Button Clicked")
+            EditDialog().show(supportFragmentManager, "Profile Edit Dialog")
+        }
 
         findViewById<Button>(R.id.profile_history_btn).setOnClickListener {
             val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
-
 
     }
 
@@ -60,6 +68,8 @@ class ProfileActivity : AppCompatActivity() {
             bloodTypeField.text = resources.getString(R.string.blood_type) + " " + it.bloodType
             lastDonationField.text = resources.getString(R.string.last_donation) + " " + it.lastDonation
         }
+
+
     }
 
 
@@ -107,12 +117,45 @@ class ProfileActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.logout_icon -> {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                Cst.logout(this)
+                Log.d(TAG, "onOptionsItemSelected: Opening Logout Dialog")
+                LogoutDialog().show(supportFragmentManager, "logout alert dialog")
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onDialogEditClick(city: String, bloodType: String) {
+        val newData = mapOf(
+            Pair("city", city),
+            Pair("bloodType", bloodType)
+        )
+        val call = ApiClient.getAppuserServices().updateUser(newData, Cst.token)
+        call.enqueue(object : Callback<String>{
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.e(TAG, "onDialogEditClick: onFailure: ${t.message}")
+                Cst.fastToast(this@ProfileActivity, "Update Failed")
+            }
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(!response.isSuccessful){
+                    Log.d(TAG, "onDialogEditClick: onResponse: Update not Successful ${response.code()} : ${response.body()}")
+                    Cst.fastToast(this@ProfileActivity, "Update not Successful")
+                    return
+                }
+                else{
+                    Cst.fastToast(this@ProfileActivity, "User Updated Successfully")
+                    val msg = response.body()
+                    Log.d(TAG, "onDialogEditClick:  User Updated Successfully : $msg")
+                    cityField.text = resources.getString(R.string.city) + " " + city
+                    bloodTypeField.text = resources.getString(R.string.blood_type) + " " + bloodType
 
+                    Cst.unsubscribeFromTopic(Cst.currentUser!!.city!!)
+                    Cst.subscribeToTopic(city)
+                    Cst.currentUser!!.city = city
+                    Cst.currentUser!!.bloodType = bloodType
+
+                    Cst.saveData(this@ProfileActivity)
+                }
+            }
+        })
+    }
 }

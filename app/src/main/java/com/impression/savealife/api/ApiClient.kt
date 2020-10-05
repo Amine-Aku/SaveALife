@@ -12,7 +12,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 object ApiClient {
 
-    private const val baseUrl = "https://save-a-life-web-server.herokuapp.com/"
+    private const val baseUrl = PrivateAPIs.SERVER_BASE_URL
     private var retrofit: Retrofit? = null
 
     fun getRetrofitInstance(): Retrofit{

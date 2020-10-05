@@ -13,7 +13,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NavUtils
 import com.impression.savealife.R
 import com.impression.savealife.api.ApiClient
-import com.impression.savealife.api.MapboxToken
+import com.impression.savealife.api.PrivateAPIs
 import com.impression.savealife.models.Cst
 import com.impression.savealife.models.Notification
 import com.impression.savealife.models.Place
@@ -52,7 +52,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Mapbox.getInstance(applicationContext, MapboxToken.access_token)
+        Mapbox.getInstance(applicationContext, PrivateAPIs.MAPBOX_ACCESS_TOKEN)
         setContentView(R.layout.activity_new_post)
 
         title = resources.getString(R.string.new_post)
@@ -179,7 +179,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         Log.d(TAG, "goToPlacePickerActivity: Open Picker on : ${city[0].toString()}")
         startActivityForResult(
             PlacePicker.IntentBuilder()
-                .accessToken(MapboxToken.access_token)
+                .accessToken(PrivateAPIs.MAPBOX_ACCESS_TOKEN)
                 .placeOptions(
                     PlacePickerOptions.builder()
                         .statingCameraPosition(

@@ -62,7 +62,7 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                 }
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if(!response.isSuccessful){
-                        Log.d(TAG, "register: onResponse: Register not Successful ${response.code()} : ${response.errorBody()}")
+                        Log.d(TAG, "register: onResponse: Register not Successful ${response.code()}")
                         Cst.fastToast(this@RegisterActivity, "Register not Successful")
                         return
                     }

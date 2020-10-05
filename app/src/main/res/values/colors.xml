@@ -5,7 +5,8 @@
     <color name="colorPrimaryLight">#bbe4e1</color>
     <color name="colorPrimaryLightTransparent">#66BBE4E1</color>
 
-    <color name="colorAccent">#d7d7d7</color>
+    <color name="colorNotSelected">#d7d7d7</color>
+    <color name="colorAccent">@color/colorPrimary</color>
     <color name="colorText">#282828</color>
     <color name="colorBorders">#dfeaeb</color>
     

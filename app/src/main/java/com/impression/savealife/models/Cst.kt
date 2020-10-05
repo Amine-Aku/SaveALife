@@ -91,6 +91,7 @@ object Cst {
         authenticated = false
         clearData(context)
         fastToast(context, "You have logged out Successfully")
+        Log.d(TAG, "logout: Logged out successfully")
     }
 
     fun saveData(context: Context){

@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.JsonObject
 import com.impression.savealife.R
-import com.impression.savealife.api.MapboxToken
+import com.impression.savealife.api.PrivateAPIs
 import com.impression.savealife.models.Place
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
@@ -64,9 +64,9 @@ class MapActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Mapbox.getInstance(applicationContext, MapboxToken.access_token)
+        Mapbox.getInstance(applicationContext, PrivateAPIs.MAPBOX_ACCESS_TOKEN)
         setContentView(R.layout.activity_map)
-        navigation = MapboxNavigation(applicationContext, MapboxToken.access_token)
+        navigation = MapboxNavigation(applicationContext, PrivateAPIs.MAPBOX_ACCESS_TOKEN)
 
         intent?.let {
             donationCenter = it.extras!!.getParcelable<Place>("center")!!
@@ -193,7 +193,7 @@ class MapActivity : AppCompatActivity(), PermissionsListener, OnMapReadyCallback
         Log.d(TAG, "drawCenterDirection: Device coordinates : $origin")
 
         val nav = NavigationRoute.builder(this)
-            .accessToken(MapboxToken.access_token)
+            .accessToken(PrivateAPIs.MAPBOX_ACCESS_TOKEN)
             .origin(origin, location.bearing.toDouble(), 90.0)
             .destination(destination)
             .build()

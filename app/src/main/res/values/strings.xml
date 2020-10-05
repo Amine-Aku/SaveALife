@@ -45,4 +45,12 @@
     <string name="notification_body">needs your blood, please save his life</string>
     <string name="notification_delimiter">needs</string>
 
+<!--    Dialogs-->
+    <string name="dialog_logout_title">Logout</string>
+    <string name="dialog_logout_message">Are you sure you want to logout ?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="dialog_edit_title">Edit</string>
+
 </resources>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--city    -->
+    <LinearLayout
+        android:id="@+id/edit_layout_city"
+        style="@style/input_field"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/post_labels"
+            android:layout_width="wrap_content"
+            android:text="@string/city" />
+
+        <Spinner
+            android:id="@+id/edit_city_spinner"
+            style="@style/input_field"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+
+            android:gravity="start"
+            android:minWidth="100dp" />
+
+        <ImageView style="@style/spinner_arrow" />
+
+    </LinearLayout>
+
+    <!--blood type-->
+    <LinearLayout
+        android:id="@+id/edit_layout_bloodType"
+        style="@style/input_field"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_below="@id/edit_layout_city"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/post_labels"
+            android:layout_width="wrap_content"
+            android:text="@string/blood_type" />
+
+        <Spinner
+            android:id="@+id/edit_bloodType_spinner"
+            style="@style/input_field_mini"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:gravity="start"
+            android:minWidth="100dp" />
+
+        <ImageView style="@style/spinner_arrow" />
+    </LinearLayout>
+
+</RelativeLayout>

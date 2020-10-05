@@ -3,10 +3,7 @@ package com.impression.savealife.services
 import com.impression.savealife.models.Appuser
 import com.impression.savealife.models.Post
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface AppuserService {
     @GET("user/{id}")
@@ -14,4 +11,7 @@ interface AppuserService {
 
     @POST("register")
     fun registerUser(@Body newUser: Appuser): Call<String>
+
+    @PUT("user/update")
+    fun updateUser(@Body data: Map<String, String>, @Header("Authorization") token: String?): Call<String>
 }

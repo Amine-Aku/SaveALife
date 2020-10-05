@@ -8,15 +8,14 @@ import android.view.MenuItem
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NavUtils
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.impression.savealife.*
 import com.impression.savealife.adapters.HomeAdapter
 import com.impression.savealife.api.ApiClient
+import com.impression.savealife.dialogs.LogoutDialog
 import com.impression.savealife.models.Cst
 import com.impression.savealife.models.Post
 import retrofit2.Call
@@ -207,10 +206,11 @@ class HomeActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.logout_icon -> {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                Cst.logout(this)
+                Log.d(TAG, "onOptionsItemSelected: Opening Logout Dialog")
+                LogoutDialog().show(supportFragmentManager, "logout alert dialog")
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

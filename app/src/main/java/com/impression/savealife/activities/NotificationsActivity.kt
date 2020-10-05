@@ -14,13 +14,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.impression.savealife.R
 import com.impression.savealife.adapters.NotificationsAdapter
 import com.impression.savealife.api.ApiClient
+import com.impression.savealife.dialogs.LogoutDialog
 import com.impression.savealife.models.Cst
 import com.impression.savealife.models.Notification
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class NotificationsActivity : AppCompatActivity() {
+class NotificationsActivity : AppCompatActivity(){
 
     private val TAG = "NotificationsActivity"
     var recyclerView: RecyclerView? = null
@@ -138,10 +139,11 @@ class NotificationsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.logout_icon -> {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                Cst.logout(this)
+                Log.d(TAG, "onOptionsItemSelected: Opening Logout Dialog")
+                LogoutDialog().show(supportFragmentManager, "logout alert dialog")
             }
         }
         return super.onOptionsItemSelected(item)
     }
+
 }
