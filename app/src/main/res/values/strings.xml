@@ -38,14 +38,23 @@
     <string name="enter_details">Enter your details here</string>
 
     <string name="posted">Posted the : </string>
+    <string name="posted_by">Posted by : </string>
+    <string name="i_donated">I have donated to this patient</string>
+    <string name="i_donated_label">If you have donated to this patient please click below to confirm</string>
+    <string name="i_donated_label_hasDonated">Please Wait until the 3 months has past to donate again</string>
 
 
-<!--    Notification-->
-    <string name="notification_title">SOS ! Someone needs you !</string>
-    <string name="notification_body">needs your blood, please save his life</string>
-    <string name="notification_delimiter">needs</string>
+    <!--    Notification-->
+    <string name="SOS_notification_title">SOS ! Someone needs you !</string>
+    <string name="SOS_notification_body">needs your blood, please save his life</string>
+    <string name="SOS_notification_delimiter">needs</string>
 
-<!--    Dialogs-->
+    <string name="donation_notification_title">Thank you for your donation!</string>
+    <string name="donation_notification_body_1">You have donated to</string>
+    <string name="donation_notification_body_2">On behalf of this patient, we thank you for your noble initiative.</string>
+
+
+    <!--    Dialogs-->
     <string name="dialog_logout_title">Logout</string>
     <string name="dialog_logout_message">Are you sure you want to logout ?</string>
     <string name="yes">Yes</string>

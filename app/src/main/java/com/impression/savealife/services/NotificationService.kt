@@ -13,6 +13,9 @@ interface NotificationService {
     @POST("user/notification/add")
     fun addNotification(@Body notification: Notification, @Header("Authorization") token: String?): Call<Notification>
 
+    @POST("user/notification/add/token")
+    fun addNotificationToToken(@Body notification: Notification, @Header("Authorization") token: String?): Call<Notification>
+
     @POST("notification/topic")
     fun sendPushNotificationToTopic(@Body notification: Notification): Call<Notification>
 

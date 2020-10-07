@@ -101,7 +101,6 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
 
     override fun onNewToken(token: String?) {
         Log.d(TAG, "onNewToken: $token")
-        Cst.saveDeviceToken(this, token)
     }
 
 

@@ -67,6 +67,7 @@ class ProfileActivity : AppCompatActivity(), EditDialog.EditDialogClickListener{
             cityField.text = resources.getString(R.string.city) + " " + it.city
             bloodTypeField.text = resources.getString(R.string.blood_type) + " " + it.bloodType
             lastDonationField.text = resources.getString(R.string.last_donation) + " " + it.lastDonation
+//                    "${date!!.date}/${date!!.month+1}/20${date!!.year%100}"
         }
 
 

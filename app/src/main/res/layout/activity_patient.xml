@@ -36,6 +36,7 @@
             android:text="Amine Fattas"
             android:textSize="22sp" />
 
+        <!--        BODY-->
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -124,8 +125,41 @@
                 style="@style/input_field_area"
                 android:hint="No details" />
 
+            <!--            poster-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/post_labels"
+                    android:layout_width="100dp"
+                    android:text="@string/posted_by" />
+
+                <TextView
+                    android:id="@+id/patient_poster"
+                    style="@style/input_field_mini" />
+            </LinearLayout>
+
         </LinearLayout>
 
+
+        <TextView
+            android:id="@+id/iDonated_label"
+            style="@style/post_labels"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:paddingHorizontal="20dp"
+            android:text="@string/i_donated_label" />
+
+        <Button
+            android:id="@+id/patient_iDonated_btn"
+            style="@style/button_medium"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:paddingHorizontal="10dp"
+            android:text="@string/i_donated" />
 
     </LinearLayout>
 

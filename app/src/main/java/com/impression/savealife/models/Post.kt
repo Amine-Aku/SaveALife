@@ -8,7 +8,8 @@ import androidx.annotation.RequiresApi
 @RequiresApi(Build.VERSION_CODES.O)
 class Post() : Parcelable {
 
-    private var poster: String? = null
+    var id: Long? = null
+    var poster: String? = null
     var patientName: String? = ""
     var date: String? = null
     var city: String? = ""
@@ -17,6 +18,7 @@ class Post() : Parcelable {
     var details: String? = ""
 
     constructor(parcel: Parcel) : this() {
+        id = parcel.readValue(Long::class.java.classLoader) as? Long
         poster = parcel.readString()
         patientName = parcel.readString()
         date = parcel.readString()
@@ -43,6 +45,7 @@ class Post() : Parcelable {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(id)
         parcel.writeString(poster)
         parcel.writeString(patientName)
         parcel.writeString(date)

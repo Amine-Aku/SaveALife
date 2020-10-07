@@ -43,13 +43,14 @@ object Cst {
 
     var token: String? = null
 
-    var deviceToken: String? = null
 
     var currentUser: Appuser? = null
         private set
 
     var authenticated: Boolean = false
         private set
+
+    var hasDonated: Boolean = false
 
 //    LISTS
 
@@ -95,13 +96,15 @@ object Cst {
         //TESTING
         FirebaseInstanceId.getInstance().instanceId
             .addOnSuccessListener {
+                Log.d(TAG, "login: get device_token: ${it.token}")
                 updateDeviceToken(it.token)
-                Log.d(TAG, "login: device_token: ${it.token}")
             }
             .addOnFailureListener {
+                Log.d(TAG, "login: get device_token: Failed")
                 updateDeviceToken("none")
             }
     }
+
 
     fun logout(context: Context){
         unsubscribeFromTopic(currentUser!!.city!!)
@@ -122,7 +125,7 @@ object Cst {
         editor.putString(USERNAME, currentUser!!.username)
         editor.putString(CITY, currentUser!!.city)
         editor.putString(BLOOD_TYPE, currentUser!!.bloodType)
-        editor.putString(LAST_DONATION, currentUser!!.lastDonation)
+        editor.putString(LAST_DONATION, currentUser!!.lastDonation.toString())
         editor.putBoolean(ACTIVE, currentUser!!.active!!)
 
         editor.putBoolean(AUTHENTICATED, authenticated)

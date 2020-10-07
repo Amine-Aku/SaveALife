@@ -100,8 +100,8 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
     }
 
     private fun createNotificationFromPost(post: Post){
-        val title = getString(R.string.notification_title)
-        val body = post!!.patientName + " " +getString(R.string.notification_body)
+        val title = getString(R.string.SOS_notification_title)
+        val body = post!!.patientName + " " +getString(R.string.SOS_notification_body)
         val userId = Cst.currentUser!!.id.toString()
         val notification = Notification(title, body, post.city!!, userId)
         Log.d(TAG, "createNotificationFromPost: Notification Created $notification")
@@ -121,25 +121,6 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
                 }
                 val newNotification = response.body()
                 Log.d(TAG, "createNotificationFromPost-register: onResponse: Successful: $newNotification")
-
-//                send notif to users
-//                val sendNotifCall = ApiClient.getNotificationServices().sendPushNotificationToTopic(notification)
-//                sendNotifCall.enqueue(object : Callback<Notification>{
-//                    override fun onFailure(call: Call<Notification>, t: Throwable) {
-//                        Log.e(TAG, "createNotificationFromPost-send : onFailure: ${t.message}")
-//                        Toast.makeText(this@NewPostActivity, t.message, Toast.LENGTH_SHORT).show()
-//                    }
-//
-//                    override fun onResponse(call: Call<Notification>, response: Response<Notification>) {
-//                        if(!response.isSuccessful){
-//                            Log.e(TAG, "createNotificationFromPost-send : onResponse not Successful : $response \n$notification")
-//                            return
-//                        }
-//                        val sentNotification = response.body()
-//                        Log.d(TAG, "createNotificationFromPost-send: onResponse: Successful !")
-//
-//                    }
-//                })
             }
         })
 

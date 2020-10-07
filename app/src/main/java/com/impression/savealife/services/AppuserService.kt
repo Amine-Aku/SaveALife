@@ -4,6 +4,7 @@ import com.impression.savealife.models.Appuser
 import com.impression.savealife.models.Post
 import retrofit2.Call
 import retrofit2.http.*
+import java.util.*
 
 interface AppuserService {
     @GET("user/{id}")
@@ -17,4 +18,7 @@ interface AppuserService {
 
     @PUT("user/token")
     fun updateToken(@Body newToken: String?, @Header("Authorization") token: String?): Call<String>
+
+    @GET("user/lastDonation")
+    fun getLastDonation(@Header("Authorization") token: String?): Call<Date>
 }

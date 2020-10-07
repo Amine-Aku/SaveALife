@@ -1,10 +1,7 @@
 package com.impression.savealife.api
 
 import com.google.gson.GsonBuilder
-import com.impression.savealife.services.AppuserService
-import com.impression.savealife.services.AuthenticationService
-import com.impression.savealife.services.NotificationService
-import com.impression.savealife.services.PostService
+import com.impression.savealife.services.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -35,6 +32,8 @@ object ApiClient {
     fun getPostServices(): PostService = getRetrofitInstance().create(PostService::class.java)
 
     fun getNotificationServices(): NotificationService = getRetrofitInstance().create(NotificationService::class.java)
+
+    fun getDonationServices(): DonationService = getRetrofitInstance().create(DonationService::class.java)
 
 
 

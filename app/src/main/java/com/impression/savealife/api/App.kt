@@ -18,14 +18,6 @@ open class App: Application() {
         ApiClient.getRetrofitInstance()
         createNotificationChannels()
 
-        FirebaseInstanceId.getInstance().instanceId
-            .addOnSuccessListener {
-
-            }
-            .addOnFailureListener {
-
-            }
-
     }
 
     private fun createNotificationChannels(){
