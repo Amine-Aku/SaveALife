@@ -202,7 +202,7 @@ class NewPostActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         val city = selectedCity()
         val details: String = detailsField.text.toString().trim()
         return if(fieldsAreValid(patientName, city))
-            Post(Cst.currentUser, patientName, city,donationCenter,bloodType, details)
+            Post(Cst.currentUser!!.username, patientName, city,donationCenter,bloodType, details)
         else null
     }
 

@@ -14,6 +14,9 @@ import com.impression.savealife.R
 import com.impression.savealife.activities.HomeActivity
 import com.impression.savealife.activities.NotificationsActivity
 import com.impression.savealife.models.Cst
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 open class FirebaseMsgService() : FirebaseMessagingService() {
 
@@ -98,5 +101,8 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
 
     override fun onNewToken(token: String?) {
         Log.d(TAG, "onNewToken: $token")
+        Cst.saveDeviceToken(this, token)
     }
+
+
 }

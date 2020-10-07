@@ -7,10 +7,15 @@ import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import com.google.android.gms.tasks.Task
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.impression.savealife.activities.HomeActivity
 import com.impression.savealife.activities.LoginActivity
+import com.impression.savealife.api.ApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -21,7 +26,8 @@ object Cst {
     private val TAG = "Cst"
     val CHANNEL_1_ID = "New Post Notification"
 
-    val SHARED_PREFS = "SAL-shared preferences"
+    val USER_PREFS = "SAL-user preferences"
+    val DEVICE_TOKEN_PREFS = "SAL-device token preferences"
     val USER_ID = "user_id"
     val USERNAME = "username"
     val CITY = "city"
@@ -30,11 +36,14 @@ object Cst {
     val ACTIVE = "isActive"
     val AUTHENTICATED = "authenticated"
     val JWT = "jwt"
+    val DEVICE_TOKEN = "device_token"
 
 //    VARs
     var isSelected = false
 
     var token: String? = null
+
+    var deviceToken: String? = null
 
     var currentUser: Appuser? = null
         private set
@@ -67,7 +76,7 @@ object Cst {
     fun fastToast(context: Context, msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
     fun subscribeToTopic(topic: String): Task<Void> = FirebaseMessaging.getInstance().subscribeToTopic(topic)
-    fun unsubscribeFromTopic(topic: String) = FirebaseMessaging.getInstance().subscribeToTopic(topic)
+    fun unsubscribeFromTopic(topic: String): Task<Void> = FirebaseMessaging.getInstance().subscribeToTopic(topic)
 
 
     fun login(jwt: String, context: Context){
@@ -82,20 +91,31 @@ object Cst {
         authenticated = true
         subscribeToTopic(currentUser!!.city!!)
         saveData(context)
+//        updateDeviceToken(loadDeviceToken(context))
+        //TESTING
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnSuccessListener {
+                updateDeviceToken(it.token)
+                Log.d(TAG, "login: device_token: ${it.token}")
+            }
+            .addOnFailureListener {
+                updateDeviceToken("none")
+            }
     }
 
     fun logout(context: Context){
         unsubscribeFromTopic(currentUser!!.city!!)
+        updateDeviceToken("none")
         token = null
         currentUser = null
         authenticated = false
-        clearData(context)
+        clearData(context, USER_PREFS)
         fastToast(context, "You have logged out Successfully")
         Log.d(TAG, "logout: Logged out successfully")
     }
 
     fun saveData(context: Context){
-        val sharedPreferences = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        val sharedPreferences = context.getSharedPreferences(USER_PREFS, MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
         editor.putLong(USER_ID, currentUser!!.id!!)
@@ -112,7 +132,7 @@ object Cst {
     }
 
     fun loadData(context: Context): Boolean{
-        val sharedPreferences = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+        val sharedPreferences = context.getSharedPreferences(USER_PREFS, MODE_PRIVATE)
         authenticated = sharedPreferences.getBoolean(AUTHENTICATED, false)
 
         if(authenticated){
@@ -130,12 +150,45 @@ object Cst {
         return authenticated
     }
 
-    private fun clearData(context: Context){
-        val sharedPreferences = context.getSharedPreferences(SHARED_PREFS, MODE_PRIVATE)
+    private fun clearData(context: Context, sharedPrefs: String){
+        val sharedPreferences = context.getSharedPreferences(sharedPrefs, MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()
     }
+
+    private fun updateDeviceToken(deviceToken: String){
+        Log.d(TAG, "updateDeviceToken: launch")
+        ApiClient.getAppuserServices().updateToken(deviceToken, token)
+                .enqueue(object : Callback<String> {
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        Log.e(TAG, "updateDeviceToken: onFailure: ${t.message}")
+                    }
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        if(!response.isSuccessful){
+                            Log.d(TAG, "updateDeviceToken: onResponse: Update not Successful ${response.code()} : ${response.body()}")
+                            return
+                        }
+                        else{
+                            val msg = response.body()
+                            Log.d(TAG, "updateDeviceToken:  Token Updated Successfully : $msg")
+                        }
+                    }
+                })
+    }
+
+    fun saveDeviceToken(context: Context, deviceToken: String?){
+        val sharedPreferences = context.getSharedPreferences(DEVICE_TOKEN_PREFS, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.putString(DEVICE_TOKEN, deviceToken)
+        editor.apply()
+    }
+
+    private fun loadDeviceToken(context: Context): String{
+        val sharedPreferences = context.getSharedPreferences(DEVICE_TOKEN_PREFS, MODE_PRIVATE)
+        return sharedPreferences.getString(DEVICE_TOKEN, "none")!!
+        }
 
 
 

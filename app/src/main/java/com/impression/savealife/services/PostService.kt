@@ -12,6 +12,9 @@ interface PostService {
     @GET("home/posts")
     fun getPosts(): Call<List<Post>>
 
-    @POST("user/home/add")
+    @GET("user/post/get")
+    fun getUserPosts(): Call<List<Post>>
+
+    @POST("user/post/add")
     fun addPost(@Body post: Post, @Header("Authorization") token: String?): Call<Post>
 }

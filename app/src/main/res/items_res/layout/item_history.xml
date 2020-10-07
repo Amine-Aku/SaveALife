@@ -12,6 +12,7 @@
 
 <!--    Date-->
         <TextView
+            android:id="@+id/history_donation_date"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@drawable/bg_history_date"
@@ -31,6 +32,7 @@
 
 <!--            Name-->
             <TextView
+                android:id="@+id/history_patientName"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_marginBottom="5dp"
@@ -42,6 +44,7 @@
 
 <!--            Infos-->
             <TextView
+                android:id="@+id/history_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="test test test test test test test test test"

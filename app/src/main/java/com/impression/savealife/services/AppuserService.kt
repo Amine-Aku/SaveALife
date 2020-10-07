@@ -14,4 +14,7 @@ interface AppuserService {
 
     @PUT("user/update")
     fun updateUser(@Body data: Map<String, String>, @Header("Authorization") token: String?): Call<String>
+
+    @PUT("user/token")
+    fun updateToken(@Body newToken: String?, @Header("Authorization") token: String?): Call<String>
 }

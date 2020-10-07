@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
+import com.google.firebase.iid.FirebaseInstanceId
 import com.impression.savealife.models.Cst
 
 open class App: Application() {
@@ -16,6 +17,14 @@ open class App: Application() {
 
         ApiClient.getRetrofitInstance()
         createNotificationChannels()
+
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnSuccessListener {
+
+            }
+            .addOnFailureListener {
+
+            }
 
     }
 
