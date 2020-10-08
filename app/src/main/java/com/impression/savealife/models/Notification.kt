@@ -10,6 +10,7 @@ class Notification() {
     var topic: String? = null
     var token: String? = null
     var userId: String? = null
+    var destinator: Long? = null
 
     //    Construtors
 

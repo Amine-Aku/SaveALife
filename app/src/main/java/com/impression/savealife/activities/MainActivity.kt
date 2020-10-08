@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         Cst.subscribeToTopic("all_users")
 
+// Load data from shared preferences and test if authenticated
         if(Cst.loadData(this)){
             startActivity(Intent(this, HomeActivity::class.java))
         }

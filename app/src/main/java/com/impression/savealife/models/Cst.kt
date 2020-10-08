@@ -16,6 +16,7 @@ import com.impression.savealife.api.ApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -34,6 +35,7 @@ object Cst {
     val BLOOD_TYPE = "bloodType"
     val LAST_DONATION = "last_donation"
     val ACTIVE = "isActive"
+    val HAS_DONATED = "has_donated"
     val AUTHENTICATED = "authenticated"
     val JWT = "jwt"
     val DEVICE_TOKEN = "device_token"
@@ -87,6 +89,7 @@ object Cst {
         val json = String(decodedBytes)
         val map = Gson().fromJson<Map<String, Objects>>(json, Map::class.java)
         currentUser = Appuser(map)
+        updateLastDonation()
         Log.d(TAG, "Cst login: currentUser : $currentUser")
         Log.d(TAG, "Cst login: TOKEN : $token")
         authenticated = true
@@ -125,8 +128,9 @@ object Cst {
         editor.putString(USERNAME, currentUser!!.username)
         editor.putString(CITY, currentUser!!.city)
         editor.putString(BLOOD_TYPE, currentUser!!.bloodType)
-        editor.putString(LAST_DONATION, currentUser!!.lastDonation.toString())
+        editor.putString(LAST_DONATION, currentUser!!.lastDonation)
         editor.putBoolean(ACTIVE, currentUser!!.active!!)
+        editor.putBoolean(HAS_DONATED, currentUser!!.hasDonated!!)
 
         editor.putBoolean(AUTHENTICATED, authenticated)
         editor.putString(JWT, token)
@@ -145,9 +149,11 @@ object Cst {
                 sharedPreferences.getString(USERNAME, ""),
                 sharedPreferences.getString(CITY, ""),
                 sharedPreferences.getString(BLOOD_TYPE, ""),
-                sharedPreferences.getString(LAST_DONATION, null),
-                sharedPreferences.getBoolean(ACTIVE, true)
+                sharedPreferences.getString(LAST_DONATION, ""),
+                sharedPreferences.getBoolean(ACTIVE, true),
+                sharedPreferences.getBoolean(HAS_DONATED, false)
                 )
+//            updateLastDonation()
         }
 
         return authenticated
@@ -180,18 +186,27 @@ object Cst {
                 })
     }
 
-    fun saveDeviceToken(context: Context, deviceToken: String?){
-        val sharedPreferences = context.getSharedPreferences(DEVICE_TOKEN_PREFS, MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
+    fun updateLastDonation(){
+        ApiClient.getAppuserServices().getLastDonation(token)
+            .enqueue(object: Callback<Date>{
+                override fun onFailure(call: Call<Date>, t: Throwable) {
+                    Log.e(TAG, "updateLastDonation: onFailure: ${t.message}")
+                }
 
-        editor.putString(DEVICE_TOKEN, deviceToken)
-        editor.apply()
+                override fun onResponse(call: Call<Date>, response: Response<Date>) {
+                    if(!response.isSuccessful){
+                        Log.d(TAG, "updateLastDonation: onResponse: LastDonation update not Successful, " +
+                                "Code: ${response.code()} " + ": ${response.body()}")
+                    }
+                    else{
+                        val date = response.body()
+                        Log.d(TAG, "updateLastDonation: onResponse: LastDonation update Successful: ${date}")
+                        currentUser!!.lastDonation = SimpleDateFormat("dd/MM/yyyy").format(date)
+                    }
+
+                }
+            })
     }
-
-    private fun loadDeviceToken(context: Context): String{
-        val sharedPreferences = context.getSharedPreferences(DEVICE_TOKEN_PREFS, MODE_PRIVATE)
-        return sharedPreferences.getString(DEVICE_TOKEN, "none")!!
-        }
 
 
 

@@ -119,11 +119,61 @@
             <ImageView style="@style/spinner_arrow" />
         </LinearLayout>
 
+        <!--hasDonated-->
+        <LinearLayout
+            android:id="@+id/register_layout_hasDonated"
+            style="@style/input_field"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginVertical="15dp"
+            android:layout_below="@id/register_layout_bloodType"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/post_labels"
+                android:layout_width="wrap_content"
+                android:text="@string/has_donated_QST"/>
+
+            <Switch
+                android:id="@+id/register_hasDonated_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:layout_marginHorizontal="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/register_layout_lastDonation"
+            android:layout_width="wrap_content"
+            style="@style/input_field_area"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/register_layout_hasDonated"
+            >
+
+            <TextView
+                style="@style/post_labels"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="@string/last_donation"/>
+
+            <DatePicker
+                android:id="@+id/register_lastDonation_picker"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+
+
         <Button
             android:id="@+id/register_register_btn"
             style="@style/button_big"
             android:layout_height="wrap_content"
-            android:layout_below="@id/register_layout_bloodType"
+            android:layout_below="@id/register_layout_lastDonation"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:text="@string/register" />

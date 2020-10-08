@@ -14,6 +14,7 @@ class Appuser() : Parcelable {
     var lastDonation: String? = null
     var city: String? = null
     var active: Boolean? = null
+    var hasDonated: Boolean? = false
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readValue(Long::class.java.classLoader) as? Long
@@ -22,6 +23,8 @@ class Appuser() : Parcelable {
         bloodType = parcel.readString()
         lastDonation = parcel.readString()
         city = parcel.readString()
+        active = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
+        hasDonated = parcel.readValue(Boolean::class.java.classLoader) as? Boolean
     }
 
     //    Constructos
@@ -36,22 +39,26 @@ class Appuser() : Parcelable {
         this.id = floor(map["id"] as Double).toLong()
         this.username = map["sub"].toString()
         this.bloodType = map["bloodType"].toString()
-        this.lastDonation = map["lastDonation"].toString()
         this.city = map["city"].toString()
+        this.lastDonation = map["lastDonation"].toString()
         this.active = map["active"] as Boolean
-
+        this.hasDonated = map["hasDonated"] as Boolean
     }
 
-    constructor(id: Long, username: String?, city: String?, bloodType: String?, lastDonation: String?, active: Boolean ) : this() {
+    constructor(id: Long, username: String?, city: String?, bloodType: String?, lastDonation: String?, active: Boolean, hasDonated: Boolean) : this() {
         this.id = id
         this.username = username
         this.city = city
         this.bloodType = bloodType
         this.lastDonation = lastDonation
         this.active = active
+        this.hasDonated = hasDonated
     }
 
 
+    override fun toString(): String {
+        return "Appuser(id=$id, username=$username, password=$password, bloodType=$bloodType, lastDonation=$lastDonation, city=$city, active=$active)"
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(id)
@@ -60,14 +67,12 @@ class Appuser() : Parcelable {
         parcel.writeString(bloodType)
         parcel.writeString(lastDonation)
         parcel.writeString(city)
+        parcel.writeValue(active)
+        parcel.writeValue(hasDonated)
     }
 
     override fun describeContents(): Int {
         return 0
-    }
-
-    override fun toString(): String {
-        return "Appuser(id=$id, username=$username, password=$password, bloodType=$bloodType, lastDonation=$lastDonation, city=$city, active=$active)"
     }
 
     companion object CREATOR : Parcelable.Creator<Appuser> {

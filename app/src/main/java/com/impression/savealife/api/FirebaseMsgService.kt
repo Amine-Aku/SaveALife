@@ -13,6 +13,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.impression.savealife.R
 import com.impression.savealife.activities.HomeActivity
 import com.impression.savealife.activities.NotificationsActivity
+import com.impression.savealife.activities.WelcomeActivity
 import com.impression.savealife.models.Cst
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,7 +56,12 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
             Log.d(TAG, "onMessageReceived: msg data payload :  ${remoteMessage.data}")
             val title = it["title"]
             val body = it["body"]
-            if( Cst.currentUser != null
+
+            if(it.containsKey("token")
+                && it["token"] != null){
+                sendNotification(title!!, body!!)
+            }
+            else if( Cst.currentUser != null
                 && it.containsKey("user_id")
                 && it["user_id"] != null
                 && it["user_id"] == Cst.currentUser!!.id.toString())
@@ -69,7 +75,11 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
 
     private fun sendNotification(title: String, messageBody: String) {
         val notificationManager = NotificationManagerCompat.from(this)
-        val intent = Intent(this, NotificationsActivity::class.java)
+        val intent = if(Cst.loadData(this)){
+            Intent(this, HomeActivity::class.java)
+        } else {
+            Intent(this, NotificationsActivity::class.java)
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
             PendingIntent.FLAG_ONE_SHOT)

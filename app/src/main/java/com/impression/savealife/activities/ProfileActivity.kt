@@ -19,6 +19,7 @@ import com.impression.savealife.models.Cst
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 
 class ProfileActivity : AppCompatActivity(), EditDialog.EditDialogClickListener{
 
@@ -67,7 +68,6 @@ class ProfileActivity : AppCompatActivity(), EditDialog.EditDialogClickListener{
             cityField.text = resources.getString(R.string.city) + " " + it.city
             bloodTypeField.text = resources.getString(R.string.blood_type) + " " + it.bloodType
             lastDonationField.text = resources.getString(R.string.last_donation) + " " + it.lastDonation
-//                    "${date!!.date}/${date!!.month+1}/20${date!!.year%100}"
         }
 
 

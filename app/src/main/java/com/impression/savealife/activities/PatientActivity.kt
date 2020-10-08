@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_patient.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
@@ -107,7 +108,7 @@ class PatientActivity : AppCompatActivity() {
                         Cst.fastToast(this@PatientActivity, "Donation registered Successfully")
                         val msg = response.body()
                         Log.d(TAG, "registerDonation:  Donation registered Successfully : $msg")
-                        Cst.hasDonated = true
+                        Cst.currentUser!!.hasDonated = true
 //                        SEND Notif to this device
                         FirebaseInstanceId.getInstance().instanceId
                             .addOnSuccessListener {
@@ -119,7 +120,8 @@ class PatientActivity : AppCompatActivity() {
                             }
 
 //                        update shared Prefs lastDonation
-                        updateLastDonation()
+                        Cst.updateLastDonation()
+                        Cst.saveData(this@PatientActivity)
                         Cst.fastToast(this@PatientActivity, getString(R.string.donation_notification_title))
                         startActivity(Intent(this@PatientActivity, HomeActivity::class.java))
                     }
@@ -127,34 +129,14 @@ class PatientActivity : AppCompatActivity() {
             })
     }
 
-    private fun updateLastDonation(){
-        ApiClient.getAppuserServices().getLastDonation(Cst.token)
-            .enqueue(object: Callback<Date>{
-                override fun onFailure(call: Call<Date>, t: Throwable) {
-                    Log.e(TAG, "updateLastDonation: onFailure: ${t.message}")
-                }
-
-                override fun onResponse(call: Call<Date>, response: Response<Date>) {
-                    if(!response.isSuccessful){
-                        Log.d(TAG, "updateLastDonation: onResponse: LastDonation update not Successful, " +
-                                "Code: ${response.code()} " + ": ${response.body()}")
-                    }
-                    else{
-                        val date = response.body()
-                        Log.d(TAG, "updateLastDonation: onResponse: LastDonation update Successful: ${date}")
-                        Cst.currentUser!!.lastDonation = "${date!!.date}/${date!!.month+1}/20${date!!.year%100}"
-                    }
-
-                }
-            })
-    }
 
     private fun sendDonationNotification(deviceToken : String){
         val title = getString(R.string.donation_notification_title)
         val body = getString(R.string.donation_notification_body_1) + " " + post!!.patientName + ".\n" +
                 getString(R.string.donation_notification_body_2)
-        val notification = Notification(title, body, post.city!!)
+        val notification = Notification(title, body, post.city!!, Cst.currentUser!!.id.toString())
         notification.token = deviceToken
+        notification.destinator = Cst.currentUser!!.id
         ApiClient.getNotificationServices().addNotificationToToken(notification, Cst.token)
             .enqueue(object : Callback<Notification>{
                 override fun onFailure(call: Call<Notification>, t: Throwable) {
@@ -173,7 +155,7 @@ class PatientActivity : AppCompatActivity() {
     }
 
     private fun checkIfUserHasDonated(){
-        if(Cst.hasDonated){
+        if(Cst.currentUser!!.hasDonated!!){
             iDonatedBtn.visibility = View.GONE
             findViewById<TextView>(R.id.iDonated_label).text = getString(R.string.i_donated_label_hasDonated)
         }
