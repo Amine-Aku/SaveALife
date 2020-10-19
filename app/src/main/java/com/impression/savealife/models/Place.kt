@@ -6,10 +6,11 @@ import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.geometry.LatLng
 
 
-class Place(private var title: String?, private var lat: Double, private var lng: Double, private var city: String?, var placeName: String?)
-    : Parcelable {
+class Place(var id: Long?, var title: String?, private var lat: Double, private var lng: Double, private var city: String?, var placeName: String?) :
+    Parcelable {
 
     constructor(parcel: Parcel) : this(
+        parcel.readValue(Long::class.java.classLoader) as? Long,
         parcel.readString(),
         parcel.readDouble(),
         parcel.readDouble(),
@@ -25,11 +26,10 @@ class Place(private var title: String?, private var lat: Double, private var lng
 
 
 
-    override fun toString(): String {
-        return "Place(title='$title', lat=$lat, lng=$lng, city='$city', placeName='$placeName')"
-    }
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeValue(id)
         parcel.writeString(title)
         parcel.writeDouble(lat)
         parcel.writeDouble(lng)
@@ -39,6 +39,10 @@ class Place(private var title: String?, private var lat: Double, private var lng
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    override fun toString(): String {
+        return "Place(id=$id, title=$title, lat=$lat, lng=$lng, city=$city, placeName=$placeName)"
     }
 
     companion object CREATOR : Parcelable.Creator<Place> {

@@ -5,6 +5,7 @@ import com.impression.savealife.services.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.create
 
 
 object ApiClient {
@@ -34,6 +35,8 @@ object ApiClient {
     fun getNotificationServices(): NotificationService = getRetrofitInstance().create(NotificationService::class.java)
 
     fun getDonationServices(): DonationService = getRetrofitInstance().create(DonationService::class.java)
+
+    fun getPlaceServices(): PlaceService = getRetrofitInstance().create(PlaceService::class.java)
 
 
 
