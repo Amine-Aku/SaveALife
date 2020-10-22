@@ -89,7 +89,7 @@ object Cst {
         val json = String(decodedBytes)
         val map = Gson().fromJson<Map<String, Objects>>(json, Map::class.java)
         currentUser = Appuser(map)
-        updateLastDonation()
+        updateLastDonation(context)
         Log.d(TAG, "Cst login: currentUser : $currentUser")
         Log.d(TAG, "Cst login: TOKEN : $token")
         authenticated = true
@@ -186,7 +186,7 @@ object Cst {
                 })
     }
 
-    fun updateLastDonation(){
+    fun updateLastDonation(context: Context){
         ApiClient.getAppuserServices().getLastDonation(token)
             .enqueue(object: Callback<Date>{
                 override fun onFailure(call: Call<Date>, t: Throwable) {
@@ -201,7 +201,10 @@ object Cst {
                     else{
                         val date = response.body()
                         Log.d(TAG, "updateLastDonation: onResponse: LastDonation update Successful: ${date}")
+                        Log.d(TAG, "updateLastDonation: onResponse: Date Format: ${SimpleDateFormat("dd/MM/yyyy").format(date)}")
                         currentUser!!.lastDonation = SimpleDateFormat("dd/MM/yyyy").format(date)
+                        Log.d(TAG, "updateLastDonation: onResponse: user : ${currentUser}")
+                        saveData(context)
                     }
 
                 }

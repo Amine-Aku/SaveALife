@@ -20,7 +20,8 @@ object ApiClient {
             val gson = GsonBuilder().setLenient().create()
 
             val okHttpClient = OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .callTimeout(20, TimeUnit.SECONDS)
                 .build()
 
             retrofit = Retrofit.Builder()

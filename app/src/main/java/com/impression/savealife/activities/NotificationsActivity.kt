@@ -48,6 +48,8 @@ class NotificationsActivity : AppCompatActivity(){
 
         retrofitCall()
 
+        Log.d(TAG, "onCreate: ${Cst.currentUser}")
+
     }
 
     private fun retrofitCall(){
@@ -78,12 +80,14 @@ class NotificationsActivity : AppCompatActivity(){
             override fun onItemClick(pos: Int) {
                 Log.d(TAG, "onItemClick: Item Clicked : ${list[pos]}")
                 val notif = list[pos]
-//                Cst.fastToast(this@NotificationsActivity, "You clicked ${notif.title}")
-                val patientName = notif.body.substringBefore(getString(R.string.SOS_notification_delimiter))
-                val intent = Intent(this@NotificationsActivity, HomeActivity::class.java)
-                intent.putExtra("patientName", patientName)
-                startActivity(intent)
-                overridePendingTransition(0, 0)
+                if(notif.title == getString(R.string.SOS_notification_title))
+                {
+                    val patientName = notif.body.substringBefore(getString(R.string.SOS_notification_delimiter))
+                    val intent = Intent(this@NotificationsActivity, HomeActivity::class.java)
+                    intent.putExtra("patientName", patientName)
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                }
             }
         })
         recyclerView!!.adapter = adapter

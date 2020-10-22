@@ -14,7 +14,11 @@ class Appuser() : Parcelable {
     var lastDonation: String? = null
     var city: String? = null
     var active: Boolean? = null
-    var hasDonated: Boolean? = false
+    var hasDonated: Boolean? = null
+
+    init {
+        hasDonated = false
+    }
 
     constructor(parcel: Parcel) : this() {
         id = parcel.readValue(Long::class.java.classLoader) as? Long
@@ -42,7 +46,8 @@ class Appuser() : Parcelable {
         this.city = map["city"].toString()
         this.lastDonation = map["lastDonation"].toString()
         this.active = map["active"] as Boolean
-        this.hasDonated = map["hasDonated"] as Boolean
+        this.hasDonated = map["hasDonated"] as Boolean?
+        if(hasDonated == null) hasDonated = false
     }
 
     constructor(id: Long, username: String?, city: String?, bloodType: String?, lastDonation: String?, active: Boolean, hasDonated: Boolean) : this() {

@@ -55,6 +55,7 @@ class HomeActivity : AppCompatActivity() {
 //        init
         recyclerView = findViewById(R.id.home_recycler_view)
         retrofitCall()
+        Log.d(TAG, "onCreate: ${Cst.currentUser}")
 
     }
 
@@ -137,6 +138,9 @@ class HomeActivity : AppCompatActivity() {
                             }
                             else isSelected = true
                         }
+                    if(Cst.authenticated && list[pos].poster == Cst.currentUser!!.username){
+                        header.background = resources.getDrawable(R.drawable.bg_article_header_owned, theme)
+                    }
                 }
 
 

@@ -30,7 +30,7 @@
     <Button
         android:id="@+id/welcome_login_btn"
         style="@style/button_big"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -40,44 +40,44 @@
     <Button
         android:id="@+id/welcome_home_btn"
         style="@style/button_big"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="@string/posts"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_login_btn" />
 
 
-    <TextView
-        android:id="@+id/textView2"
-        style="@style/input_field"
-        android:layout_marginTop="30dp"
-        android:text="@string/sign_in_with"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_home_btn" />
+<!--    <TextView-->
+<!--        android:id="@+id/textView2"-->
+<!--        style="@style/input_field"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:text="@string/sign_in_with"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/welcome_home_btn" />-->
 
-<!-- google / FB buttons-->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2">
+<!--&lt;!&ndash; google / FB buttons&ndash;&gt;-->
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="160dp"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/textView2"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/textView2"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/textView2">-->
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/google_logo" />
+<!--        <ImageView-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:src="@drawable/google_logo" />-->
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/fb_logo" />
-    </LinearLayout>
+<!--        <ImageView-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginLeft="10dp"-->
+<!--            android:src="@drawable/fb_logo" />-->
+<!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

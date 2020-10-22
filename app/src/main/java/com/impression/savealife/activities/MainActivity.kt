@@ -9,10 +9,12 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.messaging.FirebaseMessaging
 import com.impression.savealife.R
 import com.impression.savealife.api.ApiClient
+import com.impression.savealife.api.PrivateAPIs
 import com.impression.savealife.models.Cst
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.net.InetAddress
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,11 +29,27 @@ class MainActivity : AppCompatActivity() {
 
         Cst.subscribeToTopic("all_users")
 
+        var connected: Boolean = false
+        var counter = 1
+
+        welcomeTest(counter)
+// Load data from shared preferences and test if authenticated
+
+
+    }
+
+    private fun welcomeTest(counter: Int = 1){
         ApiClient.getAuthenticationService().welcome()
             .enqueue(object : Callback<String>{
                 override fun onFailure(call: Call<String>, t: Throwable) {
-                    Log.e(TAG, "onFailure: : ${t.message}")
-                    Cst.fastToast(this@MainActivity, "Connection Failed")
+                    if(counter != 3 ) {
+                        Log.i(TAG, "welcomeTest : onFailure: Test N°$counter : ${t.message}")
+                        welcomeTest(counter + 1)
+                    }
+                    else{
+                        Log.i(TAG, "welcomeTest : onFailure: Test N°$counter : ${t.message} : Connection Failed !")
+                        Cst.fastToast(this@MainActivity, "Connection Failed")
+                    }
                 }
 
                 override fun onResponse(call: Call<String>, response: Response<String>) {
@@ -40,19 +58,31 @@ class MainActivity : AppCompatActivity() {
                     }
                     else{
                         Log.d(TAG, "onResponse: Connection Successful : ${response.body()}")
-                        if(Cst.loadData(this@MainActivity)){
-                            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
-                        }
-                        else {
-                            startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
-                        }
+                        redirect()
                     }
                 }
             })
+    }
 
-// Load data from shared preferences and test if authenticated
+    private fun pingTest(): Boolean{
+        return try {
+            val inAddress = InetAddress.getByName(PrivateAPIs.SERVER_BASE_URL)
+            !inAddress.equals("")
+        } catch (e: Exception){
+            Log.e(TAG, "pingTest: Exception : ${e.message}")
+            false
+        }
+    }
 
-
+    private fun redirect(){
+        if(Cst.loadData(this@MainActivity)){
+            startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+            overridePendingTransition(0, 0)
+        }
+        else {
+            startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
+            overridePendingTransition(0, 0)
+        }
     }
 
     fun GoHome(view: View) {

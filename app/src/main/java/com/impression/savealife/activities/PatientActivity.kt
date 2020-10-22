@@ -120,8 +120,7 @@ class PatientActivity : AppCompatActivity() {
                             }
 
 //                        update shared Prefs lastDonation
-                        Cst.updateLastDonation()
-                        Cst.saveData(this@PatientActivity)
+                        Cst.updateLastDonation(this@PatientActivity)
                         Cst.fastToast(this@PatientActivity, getString(R.string.donation_notification_title))
                         startActivity(Intent(this@PatientActivity, HomeActivity::class.java))
                     }

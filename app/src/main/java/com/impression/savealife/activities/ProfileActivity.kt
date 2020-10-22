@@ -67,6 +67,7 @@ class ProfileActivity : AppCompatActivity(), EditDialog.EditDialogClickListener{
             usernameField.text = it.username
             cityField.text = resources.getString(R.string.city) + " " + it.city
             bloodTypeField.text = resources.getString(R.string.blood_type) + " " + it.bloodType
+//            Log.d(TAG, "init: ${Cst.currentUser}")
             lastDonationField.text = resources.getString(R.string.last_donation) + " " + it.lastDonation
         }
 
