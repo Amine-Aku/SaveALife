@@ -61,9 +61,7 @@ class Appuser() : Parcelable {
     }
 
 
-    override fun toString(): String {
-        return "Appuser(id=$id, username=$username, password=$password, bloodType=$bloodType, lastDonation=$lastDonation, city=$city, active=$active)"
-    }
+
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(id)
@@ -78,6 +76,10 @@ class Appuser() : Parcelable {
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    override fun toString(): String {
+        return "Appuser(id=$id, username=$username, password=$password, bloodType=$bloodType, lastDonation=$lastDonation, city=$city, active=$active, hasDonated=$hasDonated)"
     }
 
     companion object CREATOR : Parcelable.Creator<Appuser> {

@@ -1,5 +1,6 @@
 package com.impression.savealife.activities
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         title = resources.getString(R.string.login)
+
 
         init()
         showHidePassword()
@@ -77,6 +79,8 @@ class LoginActivity : AppCompatActivity() {
                     usernameField.text.clear()
                     passwordField.text.clear()
                     startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    setResult(Activity.RESULT_OK, null)
+                    finish()
                 }
             }
         })

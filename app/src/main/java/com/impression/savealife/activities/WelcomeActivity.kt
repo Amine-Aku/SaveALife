@@ -8,12 +8,14 @@ import com.impression.savealife.R
 
 class WelcomeActivity : AppCompatActivity() {
 
+    private val REQUEST_EXIT_CODE = 300
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
         findViewById<Button>(R.id.welcome_login_btn).setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivityForResult(Intent(this, LoginActivity::class.java), REQUEST_EXIT_CODE)
         }
 
         findViewById<Button>(R.id.welcome_home_btn).setOnClickListener {
@@ -21,7 +23,17 @@ class WelcomeActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_EXIT_CODE) {
+            if (resultCode == RESULT_OK) {
+                this.finish();
+
+            }
+        }
+    }
+
     override fun onBackPressed() {
-//        EXIT APP
+        finish()
     }
 }

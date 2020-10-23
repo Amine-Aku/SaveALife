@@ -78,10 +78,12 @@ class MainActivity : AppCompatActivity() {
         if(Cst.loadData(this@MainActivity)){
             startActivity(Intent(this@MainActivity, HomeActivity::class.java))
             overridePendingTransition(0, 0)
+            finish()
         }
         else {
             startActivity(Intent(this@MainActivity, WelcomeActivity::class.java))
             overridePendingTransition(0, 0)
+            finish()
         }
     }
 

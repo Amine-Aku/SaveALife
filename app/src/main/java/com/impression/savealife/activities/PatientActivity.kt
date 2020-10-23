@@ -120,9 +120,11 @@ class PatientActivity : AppCompatActivity() {
                             }
 
 //                        update shared Prefs lastDonation
+                        Cst.unsubscribeFromTopic(Cst.currentUser!!.city!!)
                         Cst.updateLastDonation(this@PatientActivity)
                         Cst.fastToast(this@PatientActivity, getString(R.string.donation_notification_title))
                         startActivity(Intent(this@PatientActivity, HomeActivity::class.java))
+                        finish()
                     }
                 }
             })
@@ -133,7 +135,7 @@ class PatientActivity : AppCompatActivity() {
         val title = getString(R.string.donation_notification_title)
         val body = getString(R.string.donation_notification_body_1) + " " + post!!.patientName + ".\n" +
                 getString(R.string.donation_notification_body_2)
-        val notification = Notification(title, body, post.city!!, Cst.currentUser!!.id.toString())
+        val notification = Notification(title, body, null, Cst.currentUser!!.id.toString())
         notification.token = deviceToken
         notification.destinator = Cst.currentUser!!.id
         ApiClient.getNotificationServices().addNotificationToToken(notification, Cst.token)

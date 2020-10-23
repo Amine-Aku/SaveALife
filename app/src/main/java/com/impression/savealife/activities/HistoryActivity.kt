@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.core.app.NavUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.impression.savealife.R
@@ -76,6 +77,10 @@ class HistoryActivity : AppCompatActivity() {
             Log.d(TAG, "setRecyclerView: Data Change !")
             adapter!!.notifyDataSetChanged()
         }
+    }
+
+    override fun onBackPressed() {
+        NavUtils.navigateUpFromSameTask(this)
     }
 
 

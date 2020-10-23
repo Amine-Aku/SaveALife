@@ -14,7 +14,7 @@ class Notification() {
 
     //    Construtors
 
-    constructor(title: String, body: String, topic: String, userId: String? = null): this() {
+    constructor(title: String, body: String, topic: String?, userId: String? = null): this() {
         this.title = title
         this.body = body
         this.topic = topic

@@ -120,7 +120,7 @@ class ProfileActivity : AppCompatActivity(), EditDialog.EditDialogClickListener{
         when(item.itemId){
             R.id.logout_icon -> {
                 Log.d(TAG, "onOptionsItemSelected: Opening Logout Dialog")
-                LogoutDialog().show(supportFragmentManager, "logout alert dialog")
+                LogoutDialog(this).show(supportFragmentManager, "logout alert dialog")
             }
         }
         return super.onOptionsItemSelected(item)

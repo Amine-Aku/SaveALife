@@ -21,6 +21,7 @@ import com.impression.savealife.models.Post
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.system.exitProcess
 
 class HomeActivity : AppCompatActivity() {
 
@@ -49,8 +50,9 @@ class HomeActivity : AppCompatActivity() {
 
 //   Add+ Button(FloatingActionButton)
          findViewById<FloatingActionButton>(R.id.home_add_alert).setOnClickListener {
-            startActivity(Intent(this, NewPostActivity::class.java))
-        }
+            if(Cst.authenticated) startActivity(Intent(this, NewPostActivity::class.java))
+             else startActivity(Intent(this, LoginActivity::class.java))
+         }
 
 //        init
         recyclerView = findViewById(R.id.home_recycler_view)
@@ -200,6 +202,12 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         // EXIT APP or put in background
+        if(!Cst.authenticated){
+            super.onBackPressed()
+        }
+        else{
+            finish()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -211,7 +219,7 @@ class HomeActivity : AppCompatActivity() {
         when(item.itemId){
             R.id.logout_icon -> {
                 Log.d(TAG, "onOptionsItemSelected: Opening Logout Dialog")
-                LogoutDialog().show(supportFragmentManager, "logout alert dialog")
+                LogoutDialog(this).show(supportFragmentManager, "logout alert dialog")
             }
         }
         return super.onOptionsItemSelected(item)

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.impression.savealife.R
 import com.impression.savealife.models.Donation
 import com.impression.savealife.models.Notification
+import java.text.SimpleDateFormat
 
 class HistoryAdapter(private val donations: List<Donation>)
     : RecyclerView.Adapter<HistoryAdapter.ViewHolder>(){
@@ -58,7 +59,9 @@ class HistoryAdapter(private val donations: List<Donation>)
         @RequiresApi(Build.VERSION_CODES.O)
         fun setData(donation: Donation, pos: Int) {
             donation?.let{
-                dateField!!.text = donation.date
+                val str1 = it.date!!.substringBeforeLast('/')
+                val str2 = it.date!!.substringAfterLast('/')
+                dateField!!.text = "$str1\n$str2"
                 patientNameField!!.text = donation.patientPost!!.patientName
                 bodyField!!.text = donation.patientPost!!.city
             }

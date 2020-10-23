@@ -79,7 +79,7 @@ object Cst {
     fun fastToast(context: Context, msg: String) = Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
     fun subscribeToTopic(topic: String): Task<Void> = FirebaseMessaging.getInstance().subscribeToTopic(topic)
-    fun unsubscribeFromTopic(topic: String): Task<Void> = FirebaseMessaging.getInstance().subscribeToTopic(topic)
+    fun unsubscribeFromTopic(topic: String): Task<Void> = FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
 
 
     fun login(jwt: String, context: Context){
@@ -93,7 +93,10 @@ object Cst {
         Log.d(TAG, "Cst login: currentUser : $currentUser")
         Log.d(TAG, "Cst login: TOKEN : $token")
         authenticated = true
-        subscribeToTopic(currentUser!!.city!!)
+        if(!currentUser!!.hasDonated!!) {
+            Log.d(TAG, "login: Subscribing to ${currentUser!!.city!!}")
+            subscribeToTopic(currentUser!!.city!!)
+        }
         saveData(context)
 //        updateDeviceToken(loadDeviceToken(context))
         //TESTING

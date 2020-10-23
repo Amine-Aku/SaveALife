@@ -94,6 +94,7 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                         val msg = response.body()
                         Log.d(TAG, "onResponse:  User Registered Successfully : $msg")
                         startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+                        finish()
                     }
                 }
             })
@@ -114,8 +115,8 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
 
         return if(username == "" || password != confirmPW || password == confirmPW) {
             val newUser = Appuser(username, password, city, bloodType)
+            newUser.hasDonated = hasDonatedSwitch.isChecked
             if(hasDonatedSwitch.isChecked){
-                newUser.hasDonated = hasDonatedSwitch.isChecked
                 var date = Date()
                 date.month = lastDonationPicker.month
                 date.date = lastDonationPicker.dayOfMonth
