@@ -28,38 +28,24 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
         receiveNotificationDataOnly(remoteMessage)
     }
 
-    private fun receiveNotification(remoteMessage: RemoteMessage?) {
-        remoteMessage!!.notification?.let {
-            val title = it.title
-            val body = it.body
-            Log.d(TAG, "onMessageReceived: Title : $title\nBody : $body")
-            val data = remoteMessage.data
-            if(data.isNotEmpty()){
-                Log.d(TAG, "onMessageReceived: msg data payload :  ${remoteMessage.data}")
-                val currentUserId = 1
-                if(data.containsKey("user_id") && data["user_id"] == currentUserId.toString())
-                    Log.d(TAG, "onMessageReceived: msg not destined to this user: $currentUserId")
-                else
-                {
-                    sendNotification(title!!, body!!)
-                }
-            }
-            else
-            {
-                sendNotification(title!!, body!!)
-            }
-        }
-    }
 
     private fun receiveNotificationDataOnly(remoteMessage: RemoteMessage?){
         remoteMessage!!.data?.let {
             Log.d(TAG, "onMessageReceived: msg data payload :  ${remoteMessage.data}")
-            val title = it["title"]
-            val body = it["body"]
+            var title = it["title"]
+            var body = it["body"]
+
 
             if(it.containsKey("token")
                 && it["token"] != null){
-                sendNotification(title!!, body!!)
+                if(title == "welcome back"){
+                    title = getString(R.string.welcomeback_notification_title)
+                    body = getString(R.string.welcomeback_notification_body)
+                    Cst.currentUser!!.hasDonated = false
+                    Cst.saveData(this)
+                    sendNotification(title!!, body!!, Cst.CHANNEL_3_ID_uCanDonate)
+                }
+                sendNotification(title!!, body!!, Cst.CHANNEL_2_ID_Donation)
             }
             else if( Cst.currentUser != null
                 && it.containsKey("user_id")
@@ -68,12 +54,12 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
                 Log.d(TAG, "onMessageReceived: msg not destined to this user: ${Cst.currentUser!!.id}")
             else
             {
-                sendNotification(title!!, body!!)
+                sendNotification(title!!, body!!, Cst.CHANNEL_1_ID_NewPost)
             }
         }
     }
 
-    private fun sendNotification(title: String, messageBody: String) {
+    private fun sendNotification(title: String, messageBody: String, channel: String) {
         val notificationManager = NotificationManagerCompat.from(this)
         val intent = if(Cst.loadData(this)){
             Intent(this, HomeActivity::class.java)
@@ -85,7 +71,7 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
             PendingIntent.FLAG_ONE_SHOT)
 
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notification = NotificationCompat.Builder(this, Cst.CHANNEL_1_ID)
+        val notification = NotificationCompat.Builder(this, channel)
             .setSmallIcon(R.drawable.ic_heart)
             .setColor(ContextCompat.getColor(this, android.R.color.holo_red_light))
             .setContentTitle(title)

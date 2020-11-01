@@ -25,7 +25,9 @@ object Cst {
 
 //    FIELDS
     private val TAG = "Cst"
-    val CHANNEL_1_ID = "New Post Notification"
+    val CHANNEL_1_ID_NewPost = "New SOS Post"
+    val CHANNEL_2_ID_Donation = "Donation"
+    val CHANNEL_3_ID_uCanDonate = "You can donate"
 
     val USER_PREFS = "SAL-user preferences"
     val DEVICE_TOKEN_PREFS = "SAL-device token preferences"

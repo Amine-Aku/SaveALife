@@ -54,6 +54,19 @@
     <string name="donation_notification_body_1">You have donated to</string>
     <string name="donation_notification_body_2">On behalf of this patient, we thank you for your noble initiative.</string>
 
+    <string name="welcomeback_notification_title">Welcome back!</string>
+    <string name="welcomeback_notification_body">You can donate now, please save a life</string>
+
+<!--    Channels-->
+    <string name="channel1_title">New SOS Post</string>
+    <string name="channel1_description">When an user posts a new SOS in your subscribed Topic(city)</string>
+
+    <string name="channel2_title">Donation</string>
+    <string name="channel2_description">When you confirm a donation</string>
+
+    <string name="channel3_title">You can donate</string>
+    <string name="channel3_description">When the resting period is over and you can donate again (3 months after last donation)</string>
+
 
     <!--    Dialogs-->
     <string name="dialog_logout_title">Logout</string>
