@@ -54,7 +54,7 @@ object Cst {
     var authenticated: Boolean = false
         private set
 
-    var hasDonated: Boolean = false
+    var wcBack: Boolean = false
 
 //    LISTS
 
@@ -83,6 +83,16 @@ object Cst {
     fun subscribeToTopic(topic: String): Task<Void> = FirebaseMessaging.getInstance().subscribeToTopic(topic)
     fun unsubscribeFromTopic(topic: String): Task<Void> = FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
 
+    fun wcBackCheck(context: Context): Boolean{
+        if(wcBack){
+            Log.d(TAG, "wcBackCheck: wcBACK")
+            currentUser!!.hasDonated = false
+            saveData(context)
+            wcBack = false
+            return true
+        }
+        return false
+    }
 
     fun login(jwt: String, context: Context){
         token = "Bearer $jwt"
@@ -96,8 +106,9 @@ object Cst {
         Log.d(TAG, "Cst login: TOKEN : $token")
         authenticated = true
         if(!currentUser!!.hasDonated!!) {
-            Log.d(TAG, "login: Subscribing to ${currentUser!!.city!!}")
-            subscribeToTopic(currentUser!!.city!!)
+            Log.d(TAG, "login: Subscribing to '${currentUser!!.city!!}'")
+            FirebaseMessaging.getInstance().subscribeToTopic(currentUser!!.city!!)
+//            subscribeToTopic(currentUser!!.city!!)
         }
         saveData(context)
 //        updateDeviceToken(loadDeviceToken(context))
@@ -115,7 +126,8 @@ object Cst {
 
 
     fun logout(context: Context){
-        unsubscribeFromTopic(currentUser!!.city!!)
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(currentUser!!.city!!)
+//        unsubscribeFromTopic(currentUser!!.city!!)
         updateDeviceToken("none")
         token = null
         currentUser = null

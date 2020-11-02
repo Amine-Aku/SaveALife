@@ -43,6 +43,7 @@
     <string name="i_donated">I have donated to this patient</string>
     <string name="i_donated_label">If you have donated to this patient please click below to confirm</string>
     <string name="i_donated_label_hasDonated">Please Wait until the 3 months has past to donate again</string>
+    <string name="i_donated_label_not_authenticated">Please login to confirm donation</string>
 
 
     <!--    Notification-->

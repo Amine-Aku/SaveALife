@@ -156,7 +156,11 @@ class PatientActivity : AppCompatActivity() {
     }
 
     private fun checkIfUserHasDonated(){
-        if(Cst.currentUser!!.hasDonated!!){
+        if(!Cst.authenticated){
+            iDonatedBtn.visibility = View.GONE
+            findViewById<TextView>(R.id.iDonated_label).text = getString(R.string.i_donated_label_not_authenticated)
+        }
+        else if(Cst.currentUser!!.hasDonated!!){
             iDonatedBtn.visibility = View.GONE
             findViewById<TextView>(R.id.iDonated_label).text = getString(R.string.i_donated_label_hasDonated)
         }

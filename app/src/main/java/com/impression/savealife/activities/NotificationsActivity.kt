@@ -43,6 +43,8 @@ class NotificationsActivity : AppCompatActivity(){
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         bottomNavigationInitialize(R.id.nav_notifications)
 
+        Log.d(TAG, "onCreate: ${Cst.wcBackCheck(this)}")
+
         //        init
         recyclerView = findViewById(R.id.notifications_recycler_view)
 

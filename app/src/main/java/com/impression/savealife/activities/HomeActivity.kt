@@ -48,6 +48,7 @@ class HomeActivity : AppCompatActivity() {
         title = resources.getString(R.string.app_name)
         bottomNavigationInitialize(R.id.nav_home)
 
+        Log.d(TAG, "onCreate: ${Cst.wcBackCheck(this)}")
 //   Add+ Button(FloatingActionButton)
          findViewById<FloatingActionButton>(R.id.home_add_alert).setOnClickListener {
             if(Cst.authenticated) startActivity(Intent(this, NewPostActivity::class.java))

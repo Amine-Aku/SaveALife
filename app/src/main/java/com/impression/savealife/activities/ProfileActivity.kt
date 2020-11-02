@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NavUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import com.impression.savealife.R
 import com.impression.savealife.api.ApiClient
 import com.impression.savealife.dialogs.EditDialog
@@ -150,8 +151,8 @@ class ProfileActivity : AppCompatActivity(), EditDialog.EditDialogClickListener{
                     cityField.text = resources.getString(R.string.city) + " " + city
                     bloodTypeField.text = resources.getString(R.string.blood_type) + " " + bloodType
 
-                    Cst.unsubscribeFromTopic(Cst.currentUser!!.city!!)
-                    Cst.subscribeToTopic(city)
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic(Cst.currentUser!!.city!!)
+                    FirebaseMessaging.getInstance().subscribeToTopic(city)
                     Cst.currentUser!!.city = city
                     Cst.currentUser!!.bloodType = bloodType
 

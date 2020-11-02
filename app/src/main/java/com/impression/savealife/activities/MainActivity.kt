@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         title = resources.getString(R.string.app_name)
 
-        Cst.subscribeToTopic("all_users")
+        FirebaseMessaging.getInstance().subscribeToTopic("all_users")
 
         var connected: Boolean = false
         var counter = 1

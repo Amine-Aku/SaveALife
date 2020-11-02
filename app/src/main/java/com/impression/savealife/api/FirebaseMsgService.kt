@@ -41,8 +41,11 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
                 if(title == "welcome back"){
                     title = getString(R.string.welcomeback_notification_title)
                     body = getString(R.string.welcomeback_notification_body)
-                    Cst.currentUser!!.hasDonated = false
-                    Cst.saveData(this)
+                    Cst.currentUser?.let{
+                        Cst.currentUser!!.hasDonated = false
+                        Cst.saveData(this)
+                    }
+                    Cst.wcBack = true
                     sendNotification(title!!, body!!, Cst.CHANNEL_3_ID_uCanDonate)
                 }
                 sendNotification(title!!, body!!, Cst.CHANNEL_2_ID_Donation)
@@ -61,11 +64,12 @@ open class FirebaseMsgService() : FirebaseMessagingService() {
 
     private fun sendNotification(title: String, messageBody: String, channel: String) {
         val notificationManager = NotificationManagerCompat.from(this)
-        val intent = if(Cst.loadData(this)){
+        val intent = if(!Cst.loadData(this)){
             Intent(this, HomeActivity::class.java)
         } else {
             Intent(this, NotificationsActivity::class.java)
         }
+
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
             PendingIntent.FLAG_ONE_SHOT)
